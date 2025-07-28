@@ -1,0 +1,9 @@
+@use '../../styles/variables' as *;
+
+footer {
+    background-color: $background-color-footer;
+    height: $height-footer;
+    font-family: $title-family;
+    line-height: $line-height-footer;
+    text-align: center;
+}
