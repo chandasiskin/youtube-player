@@ -1,0 +1,54 @@
+@use '../../styles/variables' as *;
+
+main {
+    height: $height-main;
+    padding: 40px 60px;
+
+    .song_wrapper {
+        border: 1px solid $text-color;
+        border-radius: 10px;
+        height: 50px;
+        line-height: 50px;
+        transition: background-color 0.5s;
+        width: 100%;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+
+            .song_play span {
+                transform: scale(2);
+            }
+        }
+
+        div {
+            float: left;
+            height: 100%;
+            line-height: 50px;
+            margin: 0 10px;
+        }
+
+        .song_play {
+            margin-top: 5px;
+
+            span {
+                transform: scale(1.5);
+                transition: transform 0.5s;
+            }
+        }
+
+        .song_thumbnail {
+            width: 50px;
+
+            img {
+                margin: 0 auto;
+                max-height: 100%;
+                max-width: 100%;
+            }
+       }
+
+       .song_title {
+            font-weight: bold;
+       }
+    }
+}
