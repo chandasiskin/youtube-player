@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@use './styles/reset' as *;
+@use './styles/variables' as *;
+
+body {
+    background-color: $background-color-primary;
+    color: $text-color;
+    font-family: $text-family;
+    font-optical-sizing: auto;
+    font-style: normal;
+}

@@ -1,0 +1,14 @@
+$background-color-primary: #1a1a1a;
+$text-color: #fafafa;
+$text-family: 'Roboto Flex', sans-serif;
+$title-family: 'Montserrat', sans-serif;
+
+$background-color-header: rgba(0, 0, 0, 0.1);
+$height-header: 100px;
+$width-button-add-song: 150px;
+
+$background-color-footer: $background-color-header;
+$height-footer: 100px;
+$line-height-footer: $height-footer;
+
+$height-main: calc(100vh - $height-header - $height-footer);

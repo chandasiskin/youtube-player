@@ -1,0 +1,35 @@
+@use '../../styles/variables' as *;
+
+header {
+    background-color: $background-color-header;
+    height: $height-header;
+    padding: 18px 27px;
+    overflow: hidden;
+
+    input {
+        font-family: $title-family;
+    }
+
+    input[type=text] {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid $text-color;
+        border-radius: 100px;
+        color: $text-color;
+        margin-right: 9px;
+        outline: none;
+        padding: 18px 24px;
+        transition: all 0.5s;
+        width: calc(100% - $width-button-add-song);
+
+        &:hover, &:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+    }
+
+    button {
+        border-radius: 100px;
+        margin-left: 9px;
+        padding: 18px 24px;
+    }
+}
