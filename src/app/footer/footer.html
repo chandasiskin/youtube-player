@@ -1,3 +1,8 @@
+<div *ngIf="currentVideoUrl" class="player">
+    {{ currentVideoTitle }}
+    <iframe id="yt-player" type="text/html" width="0" height="0" [src]="currentVideoUrl" frameborder="0" allow="autoplay"></iframe>
+</div>
+
 <footer>
-    &copy;opyright Chanda Siskin {{ fullYear }}
+    &copy;opyright Chanda Siskin {{ copyrightYear }}
 </footer>
