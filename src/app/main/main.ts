@@ -18,21 +18,22 @@ export class Main implements OnInit {
 
   playlist: Video[] = [];
 
-  currentVideoTitle: string = "";
+  currentVideo: Video | null = null;
   currentVideoUrl: SafeResourceUrl | null = null;
-  currentVideoDuration: number = 0;
 
   progress: number = 0;
+
+  symbol: string = "arrow_play";
 
   ngOnInit(): void {
     this.playlistService.playlist$.subscribe(data => this.playlist = data);
     this.playlistService.currentVideo$.subscribe((video: Video | null) => {
       if (video) {
         const url = `https://www.youtube.com/embed/${video.id}?autoplay=1`;
+        this.currentVideo = video;
         this.currentVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-        this.currentVideoTitle = video.title;
-        this.currentVideoDuration = video.durationInSeconds;
       } else {
+        this.currentVideo = null;
         this.currentVideoUrl = null;
       }
     })
@@ -47,12 +48,12 @@ export class Main implements OnInit {
     this.progress = 0;
 
     this.intervalId = setInterval(() => {
-      if (this.progress >= 100) {
+      if (this.progress >= 100 || !video || !video.durationInSeconds) {
         this.clearMyInterval(this.intervalId);
       }
 
       let elapsedTime = (Date.now() - startingTime) / 1000;
-      let elapsedPercentage = (elapsedTime / this.currentVideoDuration) * 100;
+      let elapsedPercentage = (elapsedTime / video.durationInSeconds) * 100;
       this.progress = Math.min(elapsedPercentage, 100);
     }, 200);
   }
