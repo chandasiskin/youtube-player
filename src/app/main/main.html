@@ -1,4 +1,10 @@
 <main>
+    <div class="player">
+    {{ currentVideoTitle }}
+    <iframe id="yt-player" type="text/html" width="0" height="0" [src]="currentVideoUrl" frameborder="0" allow="autoplay"></iframe>
+        <div class="progress_bar" [style.width.%]="progress"></div>
+    </div>
+
     <div *ngFor="let video of playlist" (click)="play(video)" class="song_wrapper">
         <div class="song_play"><span class="material-symbols-rounded">play_arrow</span></div>
         <div class="song_thumbnail"><img [src]="video.thumbnailUrl" [alt]="video.title" /></div>
