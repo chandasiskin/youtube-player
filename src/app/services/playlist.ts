@@ -39,6 +39,7 @@ export class Playlist {
         const durationInSeconds = this.convertToSeconds(duration);
 
         const video: Video = {
+          uuid: Date.now(),
           id: videoId,
           title: snippet.title,
           thumbnailUrl: snippet.thumbnails.default.url,
