@@ -20,6 +20,5 @@ export class Main implements OnInit {
 
   play(video: Video) {
     this.playlistService.setCurrentVideo(video);
-    console.log(video);
   }
 }

@@ -1,5 +1,5 @@
-import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Video } from '../models/video';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -11,10 +11,15 @@ export class Playlist {
   private playlist = new BehaviorSubject<Video[]>([]);
   private currentVideo = new BehaviorSubject<Video | null>(null);
 
-  playlist$ = this.playlist.asObservable();
-  currentVideo$ = this.currentVideo.asObservable();
-
   constructor(private http: HttpClient) {}
+
+  get playlist$(): Observable<Video[]> {
+    return this.playlist.asObservable();
+  }
+
+  get currentVideo$(): Observable<Video | null> {
+    return this.currentVideo.asObservable();
+  }
 
   addVideoByUrl(youtubeUrl: string) {
     const videoId = this.extractVideoId(youtubeUrl);
@@ -29,13 +34,17 @@ export class Playlist {
         const snippet = res.items[0]?.snippet;
 
         if (!snippet) return null;
+        
+        const duration = res.items[0].contentDetails.duration.substring(2);
+        const durationInSeconds = this.convertToSeconds(duration);
 
         const video: Video = {
           id: videoId,
           title: snippet.title,
           thumbnailUrl: snippet.thumbnails.default.url,
           url: youtubeUrl,
-          duration: this.convertToSeconds(res.items[0].contentDetails.duration),
+          duration: duration,
+          durationInSeconds: durationInSeconds,
         };
         return video;
       }))
@@ -51,6 +60,10 @@ export class Playlist {
     this.currentVideo.next(video);
   }
 
+  getCurrentVideo(): Video | null {
+    return this.currentVideo.value;
+  }
+
   private extractVideoId(url: string): string | null {
     const match = url.match(/(?:v=|youtu\.be\/)([^&]+)/);
 
@@ -58,7 +71,7 @@ export class Playlist {
   }
 
   private convertToSeconds(time: string): Number {
-    const match = time.match(/^PT(?:(\d+)H)*(?:(\d+)M)*(?:(\d+)S)*$/);
+    const match = time.match(/^(?:(\d+)H)*(?:(\d+)M)*(?:(\d+)S)*$/i);
 
     if (!match) return 0;
     
