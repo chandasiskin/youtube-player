@@ -4,5 +4,5 @@ export interface Video {
     thumbnailUrl: string,
     url: string,
     duration: string,
-    durationInSeconds: Number,
+    durationInSeconds: number,
 }
