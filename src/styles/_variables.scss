@@ -11,6 +11,4 @@ $background-color-footer: $background-color-header;
 $height-footer: 100px;
 $line-height-footer: $height-footer;
 
-$height-player: 100px;
-
-$height-main: calc(100vh - $height-header - $height-footer - $height-player);
+$height-main: calc(100vh - $height-header - $height-footer);
