@@ -52,4 +52,20 @@ main {
             font-weight: bold;
        }
     }
+
+    .player {
+        background-color: rgba(255, 255, 255, 0.1);
+        margin-bottom: 50px;
+        min-height: 50px;
+        overflow: hidden;
+        padding: 10px 0;
+        text-align: center;
+
+        .progress_bar {
+            background: green;
+            height: 4px;
+            transition: width 0.2s linear;
+            width: 0;
+        }
+    }
 }

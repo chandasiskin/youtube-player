@@ -35,10 +35,11 @@ export class Playlist {
 
         if (!snippet) return null;
         
-        const duration = res.items[0].contentDetails.duration.substring(2);
+        const duration = res.items[0].contentDetails.duration.substring(2).toLowerCase();
         const durationInSeconds = this.convertToSeconds(duration);
 
         const video: Video = {
+          uuid: performance.now(),
           id: videoId,
           title: snippet.title,
           thumbnailUrl: snippet.thumbnails.default.url,
@@ -70,7 +71,7 @@ export class Playlist {
     return match ? match[1] : null;
   }
 
-  private convertToSeconds(time: string): Number {
+  private convertToSeconds(time: string): number {
     const match = time.match(/^(?:(\d+)H)*(?:(\d+)M)*(?:(\d+)S)*$/i);
 
     if (!match) return 0;
