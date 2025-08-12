@@ -68,4 +68,13 @@ main {
             width: 0;
         }
     }
+
+    button {
+        padding: 5px 10px;
+
+        .material-symbols-rounded {
+            font-size: 2em;
+            line-height: inherit
+        }
+    }
 }

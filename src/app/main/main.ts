@@ -101,7 +101,7 @@ export class Main implements OnInit {
     
     // If song has ended
     else if (event.data === PLAYER_STATE_ENDED) {
-      this.playNextSong();
+      this.playNextVideo();
     }
     
     // Update state and trigger Angular change detection
@@ -129,14 +129,25 @@ export class Main implements OnInit {
     }
   }
 
-  private playNextSong(): void {
+  playNextVideo(): void {
     const index = this.playlist.findIndex(video => video.uuid === this.currentVideo?.uuid);
-
+    
     if (index === -1 || index + 1 >= this.playlist.length) {
       return;
     }
 
     const nextVideo = this.playlist[index + 1];
     this.playlistService.setCurrentVideo(nextVideo);
+  }
+
+  playPreviousVideo(): void {
+    const index = this.playlist.findIndex(video => video.uuid === this.currentVideo?.uuid);
+    
+    if (index <= 0) {
+      return;
+    }
+
+    const previousVideo = this.playlist[index - 1];
+    this.playlistService.setCurrentVideo(previousVideo);
   }
 }
