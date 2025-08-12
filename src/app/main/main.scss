@@ -48,6 +48,10 @@ main {
             }
        }
 
+    &.currenty_playing {
+            background: rgba(0, 255, 0, 0.1);
+       }
+
        .song_title {
             font-weight: bold;
        }
