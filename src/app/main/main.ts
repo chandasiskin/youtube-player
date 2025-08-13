@@ -3,6 +3,7 @@ import { Video } from '../models/video';
 import { Playlist } from '../services/playlist';
 import { CommonModule } from '@angular/common';
 import { SafeResourceUrl } from '@angular/platform-browser';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
 const PLAYER_STATE_UNSTARTED = -1;
 const PLAYER_STATE_ENDED = 0;
@@ -20,7 +21,7 @@ declare global {
 
 @Component({
   selector: 'app-main',
-  imports: [CommonModule],
+  imports: [CommonModule, DragDropModule],
   templateUrl: './main.html',
   styleUrl: './main.scss'
 })
@@ -39,6 +40,8 @@ export class Main implements OnInit {
   private currentTime: Number = 0;
 
   currentState: "play_arrow" | "pause" | "brand_awareness" = "play_arrow";
+
+  isDragging: boolean = false;
 
   ngOnInit(): void {
     this.playlistService.playlist$.subscribe(pl => this.playlist = pl);
@@ -109,7 +112,7 @@ export class Main implements OnInit {
   }
 
   playPause(video: Video): void {
-    if (this.player) {
+    if (this.player && !this.isDragging) {
       // If clicked on the current video, and it is currently playing, pause it
       if (this.player.getPlayerState() === PLAYER_STATE_PLAYING && this.currentVideo && this.currentVideo.uuid === video.uuid) {
         this.currentTime = this.player.getCurrentTime();
@@ -149,5 +152,19 @@ export class Main implements OnInit {
 
     const previousVideo = this.playlist[index - 1];
     this.playlistService.setCurrentVideo(previousVideo);
+  }
+
+  drop(event: CdkDragDrop<Video[]>): void {
+    moveItemInArray(this.playlist, event.previousIndex, event.currentIndex);
+    
+    this.isDragging = false;
+  }
+
+  onDragStart(): void {
+    this.isDragging = true;
+  }
+
+  onDragEnd(): void {
+    this.isDragging = false;
   }
 }
