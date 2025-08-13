@@ -52,6 +52,10 @@ main {
 
     .song_wrapper {
         @include song_wrapper-style;
+
+        &.currently_playing {
+            background-color: rgba(0, 255, 0, 0.1);
+        }
     }
 
     .player {
@@ -80,6 +84,10 @@ main {
 .cdk-drag-preview {
     @include song_wrapper-style;
     background-color: rgba(255, 255, 255, 0.1);
+
+    &.currently_playing {
+        background-color: rgba(0, 255, 0, 0.1);
+    }
 }
 
 .cdk-drag-animating {
