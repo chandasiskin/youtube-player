@@ -1,14 +1,18 @@
 <main>
     <div class="player">
-        {{ currentVideo?.title }}
         <div id="player"></div>
-        <div class="progress_bar" [style.width.%]="progress"></div>
+        <button (click)="playPreviousVideo()"><span class="material-symbols-rounded">skip_previous</span></button>
+        <button (click)="playNextVideo()"><span class="material-symbols-rounded">skip_next</span></button>
     </div>
 
-    <div *ngFor="let video of playlist" (click)="playPause(video)" class="song_wrapper">
-        <div class="song_play"><span class="material-symbols-rounded">{{ currentVideo && currentVideo.uuid === video.uuid ? currentState : "play_arrow" }}</span></div>
-        <div class="song_thumbnail"><img [src]="video.thumbnailUrl" [alt]="video.title" /></div>
-        <div class="song_title">{{ video.title }}</div>
-        <div class="song_duration">{{ video.duration }}</div>
+    <div cdkDropList (cdkDropListDropped)="drop($event)" class="song_container">
+        <div *ngFor="let video of playlist" (click)="playPause(video)" class="song_wrapper"
+            [ngClass]="{'currently_playing': currentVideo && currentVideo.uuid === video.uuid}"
+            cdkDrag (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()">
+            <div class="song_play"><span class="material-symbols-rounded">{{ currentVideo && currentVideo.uuid === video.uuid ? currentState : "play_arrow" }}</span></div>
+            <div class="song_thumbnail"><img [src]="video.thumbnailUrl" [alt]="video.title" /></div>
+            <div class="song_title">{{ video.title }}</div>
+            <div class="song_duration">{{ video.duration }}</div>
+        </div>
     </div>
 </main>
