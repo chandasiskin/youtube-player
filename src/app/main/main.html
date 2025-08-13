@@ -5,7 +5,7 @@
         <button (click)="playNextVideo()"><span class="material-symbols-rounded">skip_next</span></button>
     </div>
 
-    <div cdkDropList (cdkDropListDropped)="drop($event)">
+    <div cdkDropList (cdkDropListDropped)="drop($event)" class="song_container">
         <div *ngFor="let video of playlist" (click)="playPause(video)" class="song_wrapper"
             [ngClass]="{'currenty_playing': currentVideo && currentVideo.uuid === video.uuid}" cdkDrag (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()">
             <div class="song_play"><span class="material-symbols-rounded">{{ currentVideo && currentVideo.uuid === video.uuid ? currentState : "play_arrow" }}</span></div>
