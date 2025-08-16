@@ -1,4 +1,7 @@
 <?php
+header('Access-Control-Allow-Origin: *');  // For local development (adjust in production)
+header('Access-Control-Allow-Methods: GET, POST');
+header('Access-Control-Allow-Headers: Content-Type');
 header("Content-Type: application/json");
 
 // Replace with your actual YouTube API key
