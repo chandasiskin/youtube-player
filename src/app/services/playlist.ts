@@ -26,9 +26,8 @@ export class Playlist {
 
     if (!videoId) return;
 
-    const apiKey = environment.apiKey;
-    const apiUrl = `${environment.apiUrl}&key=${apiKey}&id=${videoId}`;
-    
+    const apiUrl = `${environment.apiUrl}?id=${videoId}`;
+
     this.http.get<any>(apiUrl)
       .pipe(map(res => {
         const snippet = res.items[0]?.snippet;
