@@ -1,7 +1,15 @@
 <?php
-header('Access-Control-Allow-Origin: *');  // For local development (adjust in production)
-header('Access-Control-Allow-Methods: GET, POST');
-header('Access-Control-Allow-Headers: Content-Type');
+// Get the referer to determine if the request is from the local development
+$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+
+// Check if the host is local
+if (strpos($host, 'localhost') !== false || strpos($host, '127.0.0.1') !== false) {
+    // Insert headers to counter CORS-issue locally
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, POST');
+    header('Access-Control-Allow-Headers: Content-Type');
+}
+
 header("Content-Type: application/json");
 
 // Replace with your actual YouTube API key
