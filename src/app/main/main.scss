@@ -60,7 +60,7 @@ main {
             }
         }
     }
-
+    
     .player {
         background-color: rgba(255, 255, 255, 0.1);
         margin-bottom: 50px;
@@ -68,7 +68,6 @@ main {
         overflow: hidden;
         padding: 10px 0;
         text-align: center;
-
     }
 
     button {
@@ -91,6 +90,7 @@ main {
 
 .cdk-drag-preview {
     @include song-item-style;
+
     background-color: $background-color-primary;
     border: 1px solid $text-color;
 }
