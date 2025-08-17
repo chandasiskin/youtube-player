@@ -1,23 +1,13 @@
 @use '../../styles/variables' as *;
 
-@mixin song_wrapper-style {
+@mixin song-item-style {
     border: 1px solid $text-color;
     border-radius: 10px;
-    font-weight: bold;
     height: 50px;
     line-height: 50px;
     overflow: hidden;
     transition: background-color 0.5s;
     width: 100%;
-
-    &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        cursor: pointer;
-
-        .song_play span {
-            transform: scale(2);
-        }
-    }
 
     div {
         float: left;
@@ -44,6 +34,14 @@
             max-width: 100%;
         }
     }
+
+    .song_title {
+        font-weight: bold;
+    }
+
+    &.currently_playing {
+        background: #002A00;
+    }
 }
 
 main {
@@ -51,10 +49,14 @@ main {
     padding: 40px 60px;
 
     .song_wrapper {
-        @include song_wrapper-style;
+        @include song-item-style;
 
-        &.currently_playing {
-            background-color: rgba(0, 255, 0, 0.1);
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+
+        .song_play span {
+            transform: scale(2);
         }
     }
 
@@ -77,23 +79,20 @@ main {
     }
 }
 
-.cdk-drag-placeholder {
-    opacity: 0;
-}
-
-.cdk-drag-preview {
-    @include song_wrapper-style;
-    background-color: rgba(255, 255, 255, 0.1);
-
-    &.currently_playing {
-        background-color: rgba(0, 255, 0, 0.1);
-    }
+.cdk-drop-list-dragging .cdk-drag {
+    transition: transform 0.25s;
 }
 
 .cdk-drag-animating {
     transition: transform 0.25s;
 }
 
-.song_container.cdk-drop-list-dragging .song_wrapper {
-    transition: transform 0.25s;
+.cdk-drag-preview {
+    @include song-item-style;
+    background-color: $background-color-primary;
+    border: 1px solid $text-color;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
 }
