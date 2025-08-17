@@ -51,13 +51,12 @@ main {
     .song_wrapper {
         @include song-item-style;
 
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            cursor: pointer;
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
 
-            .song_play span {
-                transform: scale(2);
-            }
+        .song_play span {
+            transform: scale(2);
         }
     }
 
@@ -68,7 +67,6 @@ main {
         overflow: hidden;
         padding: 10px 0;
         text-align: center;
-
     }
 
     button {
