@@ -1,8 +1,15 @@
 <main>
     <div class="player">
         <div id="player"></div>
+        <button (click)="replay(10)"><span class="material-symbols-rounded">replay_10</span></button>
         <button (click)="playPreviousVideo()"><span class="material-symbols-rounded">skip_previous</span></button>
         <button (click)="playNextVideo()"><span class="material-symbols-rounded">skip_next</span></button>
+        <button (click)="forward(10)"><span class="material-symbols-rounded">forward_10</span></button>
+        <div *ngIf="currentVideo" class="progress">
+            <div>{{ currentPlaytime }}</div>
+            <div><mat-progress-bar color="primary" mode="determinate" [value]="progress"></mat-progress-bar></div>
+            <div>{{ currentVideo?.duration }}</div>
+        </div>
     </div>
 
     <div cdkDropList (cdkDropListDropped)="drop($event)" class="song_container">

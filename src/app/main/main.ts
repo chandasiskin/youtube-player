@@ -4,6 +4,7 @@ import { Playlist } from '../services/playlist';
 import { CommonModule } from '@angular/common';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const PLAYER_STATE_UNSTARTED = -1;
 const PLAYER_STATE_ENDED = 0;
@@ -21,7 +22,7 @@ declare global {
 
 @Component({
   selector: 'app-main',
-  imports: [CommonModule, DragDropModule],
+  imports: [CommonModule, DragDropModule, MatProgressBarModule],
   templateUrl: './main.html',
   styleUrl: './main.scss'
 })
@@ -36,8 +37,9 @@ export class Main implements OnInit {
   currentVideo: Video | null = null;
   currentVideoUrl: SafeResourceUrl | null = null;
 
+  private myInterval: number = -1;
   progress: number = 0;
-  private currentTime: Number = 0;
+  currentPlaytime: string = "0s";
 
   currentState: "play_arrow" | "pause" | "brand_awareness" = "play_arrow";
 
@@ -50,7 +52,10 @@ export class Main implements OnInit {
         this.currentVideo = video;
 
         this.player.cueVideoById(video.id);
-        setTimeout(() => this.player.playVideo(), 500);
+
+        setTimeout(() => {
+          this.player.playVideo();
+        }, 500);
       }
     });
 
@@ -58,6 +63,8 @@ export class Main implements OnInit {
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=-FTNbqxCfhA");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=a3HZ8S2H-GQ");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=72MYQo4IUNg");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=0wjWbYFQgqk");
 
     this.createPlayer();
   }
@@ -86,15 +93,29 @@ export class Main implements OnInit {
   }
 
   private onPlayerReady(event: any): void {
-    console.log("Player ready: ", event);
+    event.target.setVolume(100);
+    console.log("Player ready.\nSetting volume to max.");
   }
 
   private onPlayerStateChange(event: any): void {
     let newState: "play_arrow" | "pause" | "brand_awareness" = "play_arrow";
+    clearInterval(this.myInterval);
 
     // If song starts playing
     if (event.data === PLAYER_STATE_PLAYING) {
       newState = "brand_awareness";
+
+      this.zone.run(() =>
+        this.myInterval = setInterval(() => {
+          if (this.player) {
+            let elapsedTime = this.player.getCurrentTime();
+            let totalTime = this.player.getDuration();
+
+            this.currentPlaytime = this.formatTime(elapsedTime);
+            this.progress = 100 * elapsedTime / totalTime;
+          }
+        }, 200)
+      );
     }
     
     // If song is paused
@@ -105,23 +126,21 @@ export class Main implements OnInit {
     // If song has ended
     else if (event.data === PLAYER_STATE_ENDED) {
       this.playNextVideo();
+      newState = "play_arrow";
     }
-    
-    // Update state and trigger Angular change detection
-    this.zone.run(() => this.currentState = newState );
+
+    this.zone.run(() => this.currentState = newState);
   }
 
   playPause(video: Video): void {
     if (this.player && !this.isDragging) {
       // If clicked on the current video, and it is currently playing, pause it
       if (this.player.getPlayerState() === PLAYER_STATE_PLAYING && this.currentVideo && this.currentVideo.uuid === video.uuid) {
-        this.currentTime = this.player.getCurrentTime();
         this.player.pauseVideo();
       }
 
       // If clicked on the current video, and it is currently pause, resume it
       else if (this.player.getPlayerState() === PLAYER_STATE_PAUSED && this.currentVideo && this.currentVideo.uuid === video.uuid) {
-        this.player.seekTo(this.currentTime, false);
         this.player.playVideo();
       }
 
@@ -166,5 +185,35 @@ export class Main implements OnInit {
 
   onDragEnd(): void {
     this.isDragging = false;
+  }
+
+  private formatTime(time: number): string {
+    let response: string = "";
+
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = Math.floor(time % 60);
+
+    if (hours > 0) {
+      response = `${hours}h${minutes}m${seconds}s`;
+    }
+
+    else if (minutes > 0) {
+      response = `${minutes}m${seconds}s`;
+    }
+
+    else {
+      response = `${seconds}s`;
+    }
+
+    return response;
+  }
+
+  replay(amount: number): void {
+    this.player.seekTo(this.player.getCurrentTime() - amount);
+  }
+
+  forward(amount: number): void {
+    this.replay(-amount);
   }
 }
