@@ -11,10 +11,10 @@ import { Playlist } from '../services/playlist';
 export class Header {
   private playlistService = inject(Playlist);
 
-  videoUrl: string = 'https://www.youtube.com/watch?v=yebNIHKAC4A&list=RDyebNIHKAC4A&start_radio=1';
+  videoUrl: string = '';
 
   submit() {
     this.playlistService.addVideoByUrl(this.videoUrl);
-    //this.videoUrl = '';
+    this.videoUrl = '';
   }
 }

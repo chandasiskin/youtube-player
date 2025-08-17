@@ -1,6 +1,6 @@
 <header>
     <nav>
-        <input [(ngModel)]="videoUrl" placeholder="Paste youtube-link..." type="text" />
+        <input [(ngModel)]="videoUrl" placeholder="Paste youtube-link..." type="text" (keydown.enter)="submit()" />
         <button (click)="submit()">Add song</button>
     </nav>
 </header>
