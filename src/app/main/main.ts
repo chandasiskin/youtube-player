@@ -208,4 +208,12 @@ export class Main implements OnInit {
 
     return response;
   }
+
+  replay(amount: number): void {
+    this.player.seekTo(this.player.getCurrentTime() - amount);
+  }
+
+  forward(amount: number): void {
+    this.replay(-amount);
+  }
 }
