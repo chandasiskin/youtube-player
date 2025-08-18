@@ -54,7 +54,7 @@ export class Main implements OnInit {
         this.player.cueVideoById(video.id);
 
         setTimeout(() => {
-          this.player.playVideo();
+          this.playVideo();
         }, 500);
       }
     });
@@ -98,13 +98,10 @@ export class Main implements OnInit {
   }
 
   private onPlayerStateChange(event: any): void {
-    let newState: "play_arrow" | "pause" | "brand_awareness" = "play_arrow";
     clearInterval(this.myInterval);
 
     // If song starts playing
     if (event.data === PLAYER_STATE_PLAYING) {
-      newState = "brand_awareness";
-
       this.zone.run(() =>
         this.myInterval = setInterval(() => {
           if (this.player) {
@@ -119,29 +116,24 @@ export class Main implements OnInit {
     }
     
     // If song is paused
-    else if (event.data === PLAYER_STATE_PAUSED) {
-      newState = "pause";
-    }
+    else if (event.data === PLAYER_STATE_PAUSED) {}
     
     // If song has ended
     else if (event.data === PLAYER_STATE_ENDED) {
       this.playNextVideo();
-      newState = "play_arrow";
     }
-
-    this.zone.run(() => this.currentState = newState);
   }
 
   playPause(video: Video): void {
     if (this.player && !this.isDragging) {
       // If clicked on the current video, and it is currently playing, pause it
       if (this.player.getPlayerState() === PLAYER_STATE_PLAYING && this.currentVideo && this.currentVideo.uuid === video.uuid) {
-        this.player.pauseVideo();
+        this.pauseVideo();
       }
 
       // If clicked on the current video, and it is currently pause, resume it
       else if (this.player.getPlayerState() === PLAYER_STATE_PAUSED && this.currentVideo && this.currentVideo.uuid === video.uuid) {
-        this.player.playVideo();
+        this.playVideo();
       }
 
       // Else, start playing
@@ -215,5 +207,15 @@ export class Main implements OnInit {
 
   forward(amount: number): void {
     this.replay(-amount);
+  }
+
+  private playVideo(): void {
+    this.currentState = "brand_awareness";
+    this.player.playVideo();
+  }
+
+  private pauseVideo(): void {
+    this.currentState = "pause";
+    this.player.pauseVideo();
   }
 }
