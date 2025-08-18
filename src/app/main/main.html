@@ -3,6 +3,7 @@
         <div id="player"></div>
         <button (click)="replay(10)"><span class="material-symbols-rounded">replay_10</span></button>
         <button (click)="playPreviousVideo()"><span class="material-symbols-rounded">skip_previous</span></button>
+        <button (click)="playPause(currentVideo)"><span class="material-symbols-rounded">{{ currentState === "brand_awareness" ? "pause" : "play_arrow" }}</span></button>
         <button (click)="playNextVideo()"><span class="material-symbols-rounded">skip_next</span></button>
         <button (click)="forward(10)"><span class="material-symbols-rounded">forward_10</span></button>
         <div *ngIf="currentVideo" class="progress">

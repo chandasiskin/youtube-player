@@ -124,7 +124,11 @@ export class Main implements OnInit {
     }
   }
 
-  playPause(video: Video): void {
+  playPause(video: Video | null): void {
+    if (video === null) {
+      return;
+    }
+
     if (this.player && !this.isDragging) {
       // If clicked on the current video, and it is currently playing, pause it
       if (this.player.getPlayerState() === PLAYER_STATE_PLAYING && this.currentVideo && this.currentVideo.uuid === video.uuid) {
@@ -209,12 +213,12 @@ export class Main implements OnInit {
     this.replay(-amount);
   }
 
-  private playVideo(): void {
+  playVideo(): void {
     this.currentState = "brand_awareness";
     this.player.playVideo();
   }
 
-  private pauseVideo(): void {
+  pauseVideo(): void {
     this.currentState = "pause";
     this.player.pauseVideo();
   }
