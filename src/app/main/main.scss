@@ -46,6 +46,8 @@
 
 main {
     height: $height-main;
+    overflow: hidden;
+    overflow-y: auto;
     padding: 40px 60px;
 
     .song_wrapper {
@@ -53,7 +55,7 @@ main {
 
         &:hover {
             background-color: rgba(255, 255, 255, 0.1);
-            cursor: pointer;
+            cursor: grab;
 
             .song_play span {
                 transform: scale(2);
@@ -65,7 +67,6 @@ main {
         background-color: rgba(255, 255, 255, 0.1);
         border-radius: 20px;
         margin-bottom: 50px;
-        height: fit-content;
         overflow: hidden;
         padding: 10px 0;
         text-align: center;
@@ -104,6 +105,22 @@ main {
                 padding: 0;
             }
         }
+
+        .remove-from-playlist {
+            background-color: transparent;
+            border-radius: 20px;
+            box-shadow:
+                0 0 10px red,
+                inset 0 0 5px red;
+            color: red;
+            height: 50px;
+            line-height: 70px;
+            margin: 20px 20px 10px 20px;
+
+            span {
+                font-size: 2em;
+            }
+        }
     }
 }
 
@@ -119,9 +136,15 @@ main {
     @include song-item-style;
 
     background-color: $background-color-primary;
+    cursor: grabbing;
     border: 1px solid $text-color;
 }
 
 .cdk-drag-placeholder {
+    cursor: grabbing;
     opacity: 0;
+}
+
+.cdk-drop-list-dragging {
+    cursor: grabbing;
 }

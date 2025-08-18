@@ -6,11 +6,14 @@
         <button (click)="playPause(currentVideo)"><span class="material-symbols-rounded">{{ currentState === "brand_awareness" ? "pause" : "play_arrow" }}</span></button>
         <button (click)="playNextVideo()"><span class="material-symbols-rounded">skip_next</span></button>
         <button (click)="forward(10)"><span class="material-symbols-rounded">forward_10</span></button>
+
         <div *ngIf="currentVideo" class="progress">
             <div>{{ currentPlaytime }}</div>
             <div><mat-progress-bar color="primary" mode="determinate" [value]="progress"></mat-progress-bar></div>
             <div>{{ currentVideo?.duration }}</div>
         </div>
+
+        <div class="remove-from-playlist"><span class="material-symbols-rounded">delete</span></div>
     </div>
 
     <div cdkDropList (cdkDropListDropped)="drop($event)" class="song_container">
