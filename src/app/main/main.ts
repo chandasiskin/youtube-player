@@ -50,12 +50,14 @@ export class Main implements OnInit {
     this.playlistService.currentVideo$.subscribe((video: Video | null) => {
       if (video) {
         this.currentVideo = video;
-
+        
         this.player.cueVideoById(video.id);
 
         setTimeout(() => {
           this.playVideo();
         }, 500);
+      } else {
+        this.currentVideo = null;
       }
     });
 
@@ -64,19 +66,6 @@ export class Main implements OnInit {
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=a3HZ8S2H-GQ");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=72MYQo4IUNg");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=0wjWbYFQgqk");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=-FTNbqxCfhA");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=a3HZ8S2H-GQ");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=72MYQo4IUNg");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=0wjWbYFQgqk");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=-FTNbqxCfhA");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=a3HZ8S2H-GQ");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=72MYQo4IUNg");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=0wjWbYFQgqk");
 
     this.createPlayer();
   }
@@ -237,7 +226,13 @@ export class Main implements OnInit {
 
   removeFromPlaylist(event: CdkDragDrop<Video[]>): void {
     const video: Video = event.item.data;
-    
+
+    // If current video is playing, "stop" playing and remove from "current video"
+    if (video === this.currentVideo) {
+      this.pauseVideo();
+      this.currentVideo = null;
+    }
+
     this.playlistService.removeVideo(video);
   }
 }
