@@ -77,4 +77,10 @@ export class Playlist {
     
     return 3600 * Number(match[1] ?? 0) + 60 * Number(match[2] ?? 0) + Number(match[3] ?? 0);
   }
+
+  removeVideo(video: Video): void {
+    const updatedPlaylist = this.playlist.value.filter((v: Video) => v !== video);
+    
+    this.playlist.next(updatedPlaylist);
+  }
 }

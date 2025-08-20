@@ -1,4 +1,5 @@
-<main>
+<main cdkDropListGroup>
+https://material.angular.dev/cdk/drag-drop/api#CdkDragDrop
     <div class="player">
         <div id="player"></div>
         <button (click)="replay(10)"><span class="material-symbols-rounded">replay_10</span></button>
@@ -13,13 +14,15 @@
             <div>{{ currentVideo?.duration }}</div>
         </div>
 
-        <div class="remove-from-playlist"><span class="material-symbols-rounded">delete</span></div>
+        <div cdkDropList class="remove-from-playlist" (cdkDropListDropped)="removeFromPlaylist($event)">
+            <span class="material-symbols-rounded">delete</span>
+        </div>
     </div>
 
-    <div cdkDropList (cdkDropListDropped)="drop($event)" class="song_container">
+    <div cdkDropList (cdkDropListDropped)="drop($event)" class="song_container" [cdkDropListData]="playlist" (cdkDropListDropped)="drop($event)">
         <div *ngFor="let video of playlist" (click)="playPause(video)" class="song_wrapper"
             [ngClass]="{'currently_playing': currentVideo && currentVideo.uuid === video.uuid}"
-            cdkDrag (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()">
+            cdkDrag [cdkDragData]="video" (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()">
             <div class="song_play"><span class="material-symbols-rounded">{{ currentVideo && currentVideo.uuid === video.uuid ? currentState : "play_arrow" }}</span></div>
             <div class="song_thumbnail"><img [src]="video.thumbnailUrl" [alt]="video.title" /></div>
             <div class="song_title">{{ video.title }}</div>

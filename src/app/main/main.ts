@@ -65,13 +65,13 @@ export class Main implements OnInit {
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=72MYQo4IUNg");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=0wjWbYFQgqk");
-      this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=-FTNbqxCfhA");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=a3HZ8S2H-GQ");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=72MYQo4IUNg");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=0wjWbYFQgqk");
-      this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=-FTNbqxCfhA");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=a3HZ8S2H-GQ");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=72MYQo4IUNg");
@@ -233,5 +233,11 @@ export class Main implements OnInit {
   pauseVideo(): void {
     this.currentState = "pause";
     this.player.pauseVideo();
+  }
+
+  removeFromPlaylist(event: CdkDragDrop<Video[]>): void {
+    const video: Video = event.item.data;
+    
+    this.playlistService.removeVideo(video);
   }
 }

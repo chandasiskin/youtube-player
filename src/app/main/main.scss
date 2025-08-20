@@ -55,7 +55,6 @@ main {
 
         &:hover {
             background-color: rgba(255, 255, 255, 0.1);
-            cursor: grab;
 
             .song_play span {
                 transform: scale(2);
@@ -107,7 +106,7 @@ main {
         }
 
         .remove-from-playlist {
-            background-color: transparent;
+            background-color: rgba(255, 0, 0, 0.1);
             border-radius: 20px;
             box-shadow:
                 0 0 10px red,
@@ -116,6 +115,11 @@ main {
             height: 50px;
             line-height: 70px;
             margin: 20px 20px 10px 20px;
+            transition: background-color 0.25s;
+
+            &:hover {
+                background-color: rgba(255, 0, 0, 0.2);
+            }
 
             span {
                 font-size: 2em;
@@ -136,15 +140,13 @@ main {
     @include song-item-style;
 
     background-color: $background-color-primary;
-    cursor: grabbing;
     border: 1px solid $text-color;
 }
 
 .cdk-drag-placeholder {
-    cursor: grabbing;
     opacity: 0;
 }
 
-.cdk-drop-list-dragging {
-    cursor: grabbing;
+.cdk-drop-list-dragging-over {
+    background-color: orange;
 }
