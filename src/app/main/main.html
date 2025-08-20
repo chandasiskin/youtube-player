@@ -18,6 +18,8 @@
         </div>
     </div>
 
+    <div class="info-banner">Songs can be rearranged and deleted by dragging them</div>
+
     <div cdkDropList (cdkDropListDropped)="drop($event)" class="song_container" [cdkDropListData]="playlist" (cdkDropListDropped)="drop($event)">
         <div *ngFor="let video of playlist" (click)="playPause(video)" class="song_wrapper"
             [ngClass]="{'currently_playing': currentVideo && currentVideo.uuid === video.uuid}"

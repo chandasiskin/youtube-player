@@ -146,3 +146,14 @@ main {
 .cdk-drag-placeholder {
     opacity: 0;
 }
+
+
+.info-banner {
+  background-color: #000030;
+  border-left: 4px solid #0af;
+  border-radius: 0 10px 10px 0;
+  color: $text-color;
+  font-size: 0.9em;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+}
