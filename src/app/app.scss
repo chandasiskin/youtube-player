@@ -1,3 +1,5 @@
+@use '../styles/variables' as *;
+
 /* Common styles for blurred lights */
 .light {
   position: absolute;
@@ -19,4 +21,15 @@
     transform: scale(1.2);
     opacity: 0.5;
   }
+}
+
+main {
+  height: $main-height;
+  overflow: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+main::-webkit-scrollbar {
+  width: 0;
 }

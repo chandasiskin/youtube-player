@@ -30,7 +30,6 @@ export class App {
       hex += res.length === 1 ? '0' + res : res;
     }
 
-    console.log(hex);
     return hex;
   }
 }
