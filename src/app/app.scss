@@ -1,0 +1,22 @@
+/* Common styles for blurred lights */
+.light {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+  animation: pulse 12s ease-in-out infinite alternate;
+  will-change: transform;
+  z-index: -1;
+}
+
+/* Subtle scaling animation */
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+}

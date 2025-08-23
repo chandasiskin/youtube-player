@@ -1,3 +1,12 @@
+<div *ngFor="let light of lights" class="light" [ngStyle]="{
+    top: light.top,
+    left: light.left,
+    width: light.size + 'px',
+    height: light.size + 'px',
+    background: light.color,
+    animationDelay: light.delay
+}"></div>
+
 <app-header></app-header>
 <router-outlet />
 <app-footer></app-footer>
