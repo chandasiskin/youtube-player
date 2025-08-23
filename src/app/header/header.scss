@@ -1,6 +1,70 @@
 @use '../../styles/variables' as *;
 
 header {
+    height: $header-height;
+    width: 100%;
+
+    .header-container {
+        height: 100%;
+        width: 100%;
+
+        .header-video-data {
+            display: flex;
+            column-gap: 20px;
+            margin-bottom: 20px;
+
+            & > div {
+                flex-basis: 0;
+                flex-grow: 1;
+                flex-shrink: 0;
+            }
+
+            .header-video-thumbnail {
+                img {
+                    border-radius: 5px;
+                }
+            }
+
+            .header-video-title {
+                align-items: center;
+                display: flex;
+                font-weight: bold;
+                justify-content: center;
+                text-align: center;
+            }
+        }
+
+        .header-video-progress {
+            column-gap: 10px;
+            display: flex;
+            font-size: 0.8em;
+            height: $header-progress-height;
+            width: 100%;
+
+            input {
+                width: 100%;
+            }
+
+            div:first-child,
+            div:last-child {
+                text-align: right;
+                width: 50px;
+            }
+
+            div:nth-child(2) {
+                flex-grow: 1;
+            }
+
+            div:last-child {
+                text-align: left;
+            }
+        }
+    }
+}
+
+/*@use '../../styles/variables' as *;
+
+header {
     background-color: $background-color-header;
     height: $height-header;
     padding: 18px 27px;
@@ -32,4 +96,4 @@ header {
         margin-left: 9px;
         padding: 18px 24px;
     }
-}
+}*/

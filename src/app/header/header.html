@@ -1,6 +1,15 @@
 <header>
-    <nav>
-        <input [(ngModel)]="videoUrl" placeholder="Paste youtube-link..." type="text" (keydown.enter)="submit()" />
-        <button (click)="submit()">Add song</button>
-    </nav>
+    <div class="header-container">
+        <div class="header-video-data">
+            <div class="header-video-thumbnail">
+                <img src="{{ currentVideo?.thumbnailUrl }}" alt="{{ currentVideo?.title }}" />
+            </div>
+            <div class="header-video-title">{{ currentVideo?.title }}</div>
+        </div>
+        <div class="header-video-progress">
+            <div>0:00</div>
+            <div><input type="range" /></div>
+            <div>-0:00</div>
+        </div>
+    </div>
 </header>

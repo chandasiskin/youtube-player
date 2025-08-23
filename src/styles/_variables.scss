@@ -1,14 +1,10 @@
-$background-color-primary: #1a1a1a;
+// Global
+$background-color-primary: #0a0a0a;
+$background-color-darker: #20173c;
 $text-color: #fafafa;
-$text-family: 'Roboto Flex', sans-serif;
-$title-family: 'Montserrat', sans-serif;
+$text-family: 'Poppins', sans-serif;
+$site-container-width: 500px;
 
-$background-color-header: rgba(0, 0, 0, 0.1);
-$height-header: 100px;
-$width-button-add-song: 150px;
-
-$background-color-footer: $background-color-header;
-$height-footer: 100px;
-$line-height-footer: $height-footer;
-
-$height-main: calc(100vh - $height-header - $height-footer);
+// Header
+$header-height: 200px;
+$header-progress-height: 20px;
