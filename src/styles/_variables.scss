@@ -1,6 +1,8 @@
 // Global
 $background-color-primary: #0a0a0a;
-$background-color-darker: #20173c;
+$background-color-playlist: #20173caa;
+$background-color-playlist-items: #20173c;
+$body-padding-vertical: 24px;
 $text-color: #fafafa;
 $text-family: 'Poppins', sans-serif;
 $site-container-width: 500px;
@@ -8,3 +10,9 @@ $site-container-width: 500px;
 // Header
 $header-height: 200px;
 $header-progress-height: 20px;
+
+// Footer
+$footer-height: 50px;
+
+// Main
+$main-height: calc(100vh - $header-height - $footer-height - $body-padding-vertical - $body-padding-vertical);

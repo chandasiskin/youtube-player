@@ -9,15 +9,21 @@ body {
     font-optical-sizing: auto;
     font-style: normal;
     overflow: hidden;
-    padding: 24px 0;
+    padding: $body-padding-vertical 0;
     width: 100vw;
 }
 
 .site-container {
-    background-color: $background-color-darker;
+    background-color: $background-color-playlist;
     border-radius: 10px;
     margin: 0 auto;
     max-width: $site-container-width;
     padding: 20px;
     width: 100%;
+}
+
+span {
+    &.material-symbols-rounded {
+        vertical-align: bottom;
+    }
 }

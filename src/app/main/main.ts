@@ -46,7 +46,7 @@ export class Main implements OnInit {
   isDragging: boolean = false;
 
   ngOnInit(): void {
-    this.playlistService.playlist$.subscribe(pl => this.playlist = pl);
+    this.playlistService.playlist$.subscribe(playlist => this.playlist = playlist);
     this.playlistService.currentVideo$.subscribe((video: Video | null) => {
       if (video) {
         this.currentVideo = video;
@@ -95,7 +95,6 @@ export class Main implements OnInit {
 
   private onPlayerReady(event: any): void {
     event.target.setVolume(100);
-    console.log("Player ready.\nSetting volume to max.");
   }
 
   private onPlayerStateChange(event: any): void {

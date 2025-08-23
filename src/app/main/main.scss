@@ -1,6 +1,67 @@
 @use '../../styles/variables' as *;
 
 @mixin song-item-style {
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    display: flex;
+    gap: 20px;
+    margin: 4px 0;
+    padding: 6px;
+    transition: background-color 0.25s;
+
+    .playlist-video-thumbnail,
+    .playlist-video-move {
+        flex: 0 0 50px;
+    }
+
+    .playlist-video-thumbnail {
+        border-radius: 5px;
+    }
+
+    .playlist-video-title {
+        flex: 1 1 auto;
+        font-size: 0.8em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .playlist-video-move {
+        margin-left: auto;
+        text-align: right;
+    }
+}
+
+.playlist {
+    .song-wrapper {
+        @include song-item-style;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+    transition: transform 0.25s;
+}
+
+.cdk-drag-animating {
+    transition: transform 0.25s;
+}
+
+.cdk-drag-preview {
+    @include song-item-style;
+
+    background-color: $background-color-playlist-items;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+/*@mixin song-item-style {
     border: 1px solid $text-color;
     border-radius: 10px;
     height: 50px;
@@ -156,4 +217,4 @@ main {
   font-size: 0.9em;
   margin-bottom: 20px;
   padding: 10px 20px;
-}
+}*/
