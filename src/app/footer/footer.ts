@@ -24,5 +24,9 @@ export class Footer {
     this.controllerService.sendCommand(PlayerCommands.Previous);
   }
 
+  toggleShuffle(): void {
+    this.playlistService.toggleShuffle();
 
+    this.doShuffle = this.playlistService.shouldShuffle();
+  }
 }
