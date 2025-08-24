@@ -160,13 +160,22 @@ export class Header implements OnInit {
   }
 
   private playPreviousVideo(): void {
+    let nextIndex;
+
     const index = this.playlist.findIndex(video => video.uuid === this.currentVideo.uuid);
+
+    // If user pressed button after 3 seconds, restart the song
+    if (this.player.getCurrentTime() > 3) {
+      nextIndex = index;
+    } else {
+      nextIndex = index - 1;
+    }
 
     if (index <= 0) {
       return;
     }
 
-    const previousVideo = this.playlist[index - 1];
+    const previousVideo = this.playlist[nextIndex];
     this.playlistService.playVideo(previousVideo);
   }
 }
