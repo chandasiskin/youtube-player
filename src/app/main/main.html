@@ -1,15 +1,12 @@
-<div id="player"></div>
-
 <div class="playlist-container" cdkDropListGroup>
-    <div class="playlist" cdkDropList (cdkDropListDropped)="drop($event)">
-        <div *ngFor="let video of playlist" class="song-wrapper" cdkDrag (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()">
+    <div class="playlist" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="playlist">
+        <div *ngFor="let video of playlist" class="song-wrapper" cdkDrag (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()" (click)="playVideo(video)">
             <div class="playlist-video-thumbnail"><img [src]="video.thumbnailUrl" alt="video.title" /></div>
             <div class="playlist-video-title">{{ video.title }}</div>
             <div class="playlist-video-move"><span class="material-symbols-rounded">swap_vert</span></div>
         </div>
     </div>
 </div>
-
 
 
 <!--<main cdkDropListGroup>

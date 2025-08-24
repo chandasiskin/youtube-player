@@ -56,7 +56,7 @@ export class Playlist {
       });
   }
 
-  setCurrentVideo(video: Video | null) {
+  playVideo(video: Video | null): void {
     this.currentVideo.next(video);
   }
 

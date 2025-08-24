@@ -61,6 +61,12 @@
     opacity: 0;
 }
 
+.controller {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 /*@mixin song-item-style {
     border: 1px solid $text-color;
     border-radius: 10px;

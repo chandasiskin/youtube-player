@@ -1,11 +1,56 @@
 import { Component, inject, NgZone, OnInit } from '@angular/core';
 import { Video } from '../models/video';
-import { Playlist } from '../services/playlist';
 import { CommonModule } from '@angular/common';
-import { SafeResourceUrl } from '@angular/platform-browser';
+import { Playlist } from '../services/playlist';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+// import { SafeResourceUrl } from '@angular/platform-browser';
+// import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+// import { MatProgressBarModule } from '@angular/material/progress-bar';
 
+declare global {
+  interface Window {
+    onYouTubeIframeAPIReady: () => void;
+    YT: any;
+  }
+}
+
+@Component({
+  selector: 'app-main',
+  imports: [CommonModule, DragDropModule],
+  templateUrl: './main.html',
+  styleUrl: './main.scss'
+})
+export class Main implements OnInit {
+  private playlistService = inject(Playlist);
+
+  playlist: Video[] = [];
+
+  ngOnInit(): void {
+    this.playlistService.playlist$.subscribe(playlist => this.playlist = playlist);
+
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=-FTNbqxCfhA");
+  }
+
+  drop(event: CdkDragDrop<Video[]>): void {
+    moveItemInArray(this.playlist, event.previousIndex, event.currentIndex);
+  }
+
+  onDragStart(): void {
+
+  }
+
+  onDragEnd(): void {
+
+  }
+
+  playVideo(video: Video): void {
+    this.playlistService.playVideo(video);
+  }
+}
+
+
+/*
 const PLAYER_STATE_UNSTARTED = -1;
 const PLAYER_STATE_ENDED = 0;
 const PLAYER_STATE_PLAYING = 1;
@@ -66,6 +111,11 @@ export class Main implements OnInit {
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=a3HZ8S2H-GQ");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=72MYQo4IUNg");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=-FTNbqxCfhA");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=a3HZ8S2H-GQ");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=72MYQo4IUNg");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
 
     this.createPlayer();
   }
@@ -95,6 +145,7 @@ export class Main implements OnInit {
 
   private onPlayerReady(event: any): void {
     event.target.setVolume(100);
+    console.log("Player ready.\nSetting volume to max.");
   }
 
   private onPlayerStateChange(event: any): void {
@@ -235,3 +286,4 @@ export class Main implements OnInit {
     this.playlistService.removeVideo(video);
   }
 }
+*/
