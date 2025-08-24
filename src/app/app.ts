@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './header/header';
 import { Footer } from './footer/footer';
@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 export class App {
   protected readonly title = signal('youtube-player');
   private numberOfLights: number = 10;
+  
+  playerReady: boolean = false;
 
   lights = Array.from({ length: this.numberOfLights }, _ => ({
     top: `${Math.random() * 90}%`,
@@ -31,5 +33,9 @@ export class App {
     }
 
     return hex;
+  }
+
+  onPlayerReady(): void {
+    this.playerReady = true;
   }
 }

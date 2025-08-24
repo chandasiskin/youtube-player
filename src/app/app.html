@@ -7,6 +7,9 @@
     animationDelay: light.delay
 }"></div>
 
-<app-header></app-header>
+<div *ngIf="!playerReady" class="loading-screen">
+    <div class="loading-spinner"></div>
+</div>
+<app-header (playerReady)="onPlayerReady()"></app-header>
 <main><router-outlet /></main>
 <app-footer></app-footer>
