@@ -30,6 +30,9 @@ export class Main implements OnInit {
 
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=-FTNbqxCfhA");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=983bBbJx0Mk");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=TbMEMCvFbZk");
   }
 
   drop(event: CdkDragDrop<Video[]>): void {

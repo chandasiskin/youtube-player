@@ -1,6 +1,8 @@
 import { Component, EventEmitter, inject, NgZone, OnInit, Output } from '@angular/core';
 import { Playlist } from '../services/playlist';
 import { Video } from '../models/video';
+import { Controller } from '../services/controller';
+import { PlayerCommands } from '../enums/playerCommands.enum';
 
 const PLAYER_STATE_UNSTARTED = -1;
 const PLAYER_STATE_ENDED = 0;
@@ -23,6 +25,7 @@ declare global {
 })
 export class Header implements OnInit {
   private playlistService = inject(Playlist);
+  private controllerService = inject(Controller);
   private zone = inject(NgZone);
 
   private player: any;
@@ -59,6 +62,15 @@ export class Header implements OnInit {
           this.currentVideo = this.videoTemplate;
         }
       });
+    });
+
+    this.controllerService.controller$.subscribe((command: PlayerCommands) => {
+      switch(command) {
+        case PlayerCommands.Next: this.playNextVideo(); break;
+        case PlayerCommands.Previous: this.playPreviousVideo(); break;
+        case PlayerCommands.Pause: this.pauseVideo(); break;
+        case PlayerCommands.Play: this.playVideo(); break;
+      }
     });
   }
 
@@ -97,5 +109,41 @@ export class Header implements OnInit {
     }
   }
 
-  
+  private playVideo(): void {
+
+  }
+
+  private pauseVideo(): void {
+
+  }
+
+  private playNextVideo(): void {
+    const index = this.playlist.findIndex(video => video.uuid === this.currentVideo.uuid);
+    const shouldShuffle = this.playlistService.shouldShuffle();
+    let nextVideo;
+
+    if (shouldShuffle) {
+      let randomIndex = Math.floor(Math.random() * this.playlist.length);
+      nextVideo = this.playlist[randomIndex];
+    } else {
+      if (index === -1 || index + 1 >= this.playlist.length) {
+        return;
+      }
+
+      nextVideo = this.playlist[index + 1];
+    }
+
+    this.playlistService.playVideo(nextVideo);
+  }
+
+  private playPreviousVideo(): void {
+    const index = this.playlist.findIndex(video => video.uuid === this.currentVideo.uuid);
+
+    if (index <= 0) {
+      return;
+    }
+
+    const previousVideo = this.playlist[index - 1];
+    this.playlistService.playVideo(previousVideo);
+  }
 }

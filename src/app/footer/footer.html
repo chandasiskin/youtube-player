@@ -1,9 +1,9 @@
 <footer>
     <div class="controller">
-        <span class="material-symbols-rounded">shuffle</span>
-        <span class="material-symbols-rounded">skip_previous</span>
+        <span (click)="toggleShuffle()" class="material-symbols-rounded" [ngClass]="doShuffle ? 'active' : 'inactive'">shuffle</span>
+        <span (click)="previousSong()" class="material-symbols-rounded">skip_previous</span>
         <span class="material-symbols-rounded">play_circle</span>
-        <span class="material-symbols-rounded">skip_next</span>
+        <span (click)="nextSong()" class="material-symbols-rounded">skip_next</span>
         <span class="material-symbols-rounded">repeat</span>
     </div>
 

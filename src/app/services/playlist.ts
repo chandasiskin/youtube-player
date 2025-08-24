@@ -11,6 +11,8 @@ export class Playlist {
   private playlist = new BehaviorSubject<Video[]>([]);
   private currentVideo = new BehaviorSubject<Video | null>(null);
 
+  private shuffle: boolean = false;
+
   constructor(private http: HttpClient) {}
 
   get playlist$(): Observable<Video[]> {
@@ -82,5 +84,13 @@ export class Playlist {
     const updatedPlaylist = this.playlist.value.filter((v: Video) => v !== video);
     
     this.playlist.next(updatedPlaylist);
+  }
+
+  toggleShuffle(): void {
+    this.shuffle = !this.shuffle;
+  }
+
+  shouldShuffle(): boolean {
+    return this.shuffle;
   }
 }

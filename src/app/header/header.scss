@@ -33,19 +33,23 @@ header {
                 flex: 1 1 50%;
                 justify-content: center;
                 overflow: hidden;
-                padding: 20px;
                 
                 img {
                     border-radius: 5px;
                     max-height: 100%;
                     max-width: 100%;
                     object-fit: contain;
+                    width: 100%;
                 }
             }
 
             .header-video-title {
+                align-items: center;
+                display: flex;
                 flex: 1 1 50%;
                 font-weight: bold;
+                height: 100%;
+                overflow: hidden;
                 text-align: center;
             }
         }
