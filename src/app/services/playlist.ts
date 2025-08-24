@@ -41,7 +41,7 @@ export class Playlist {
           uuid: performance.now(),
           id: videoId,
           title: snippet.title,
-          thumbnailUrl: snippet.thumbnails.default.url,
+          thumbnailUrl: snippet.thumbnails.medium.url,
           url: youtubeUrl,
           duration: duration,
           durationInSeconds: durationInSeconds,

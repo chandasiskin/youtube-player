@@ -24,7 +24,7 @@ if (!isset($_GET['id'])) {
 
 $videoId = $_GET['id'];
 $part = 'id,snippet,contentDetails';
-$fields = 'items(id,snippet(title,thumbnails(default(url))),contentDetails(duration))';
+$fields = 'items(id,snippet(title,thumbnails(medium(url))),contentDetails(duration))';
 
 // YouTube API endpoint
 $apiUrl = "https://www.googleapis.com/youtube/v3/videos?part=$part&fields=$fields&key=$apiKey&id=$videoId";
