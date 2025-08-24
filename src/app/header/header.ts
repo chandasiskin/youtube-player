@@ -120,18 +120,34 @@ export class Header implements OnInit {
   private playNextVideo(): void {
     const index = this.playlist.findIndex(video => video.uuid === this.currentVideo.uuid);
     const shouldShuffle = this.playlistService.shouldShuffle();
-    let nextVideo;
+    let nextIndex;
 
-    if (shouldShuffle) {
-      let randomIndex = Math.floor(Math.random() * this.playlist.length);
-      nextVideo = this.playlist[randomIndex];
-    } else {
-      if (index === -1 || index + 1 >= this.playlist.length) {
+    // If 'repeat same song' is toggled
+    if (this.playlistService.getRepeat() === 'one') {
+      nextIndex = index;
+    }
+    
+    // If 'shuffle' is toggled
+    if (nextIndex === undefined && shouldShuffle) {
+      nextIndex = Math.floor(Math.random() * this.playlist.length);
+    }
+    
+    // If on the last song
+    if (nextIndex === undefined && index + 1 >= this.playlist.length) {
+      // If 'repeat all' is toggled
+      if (this.playlistService.getRepeat() === 'all') {
+        nextIndex = 0;
+      } else {
         return;
       }
-
-      nextVideo = this.playlist[index + 1];
     }
+    
+    // Go to next song
+    if (nextIndex === undefined) {
+      nextIndex = index + 1;
+    }
+    
+    const nextVideo = this.playlist[nextIndex];
 
     this.playlistService.playVideo(nextVideo);
   }

@@ -15,6 +15,7 @@ export class Footer {
   private playlistService = inject(Playlist);
 
   doShuffle: boolean = false;
+  doRepeat: 'none' | 'one' | 'all' = 'none';
 
   nextSong(): void {
     this.controllerService.sendCommand(PlayerCommands.Next);
@@ -28,5 +29,19 @@ export class Footer {
     this.playlistService.toggleShuffle();
 
     this.doShuffle = this.playlistService.shouldShuffle();
+  }
+
+  toggleRepeat(): void {
+    this.playlistService.toggleRepeat();
+
+    this.doRepeat = this.playlistService.getRepeat();
+  }
+
+  getRepeatIcon(): string {
+    if (this.doRepeat === 'one') {
+      return 'repeat_one';
+    } else {
+      return 'repeat';
+    }
   }
 }

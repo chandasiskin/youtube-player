@@ -12,6 +12,7 @@ export class Playlist {
   private currentVideo = new BehaviorSubject<Video | null>(null);
 
   private shuffle: boolean = false;
+  private repeat: 'none' | 'one' | 'all' = 'none';
 
   constructor(private http: HttpClient) {}
 
@@ -92,5 +93,19 @@ export class Playlist {
 
   shouldShuffle(): boolean {
     return this.shuffle;
+  }
+
+  toggleRepeat(): void {
+    if (this.repeat === 'none') {
+      this.repeat = 'one';
+    } else if (this.repeat === 'one') {
+      this.repeat = 'all';
+    } else {
+      this.repeat = 'none';
+    }
+  }
+
+  getRepeat(): 'none' | 'one' | 'all' {
+    return this.repeat;
   }
 }
