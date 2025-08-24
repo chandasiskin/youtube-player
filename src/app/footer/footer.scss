@@ -1,9 +1,40 @@
 @use '../../styles/variables' as *;
 
 footer {
-    background-color: $background-color-footer;
-    height: $height-footer;
-    font-family: $title-family;
-    line-height: $line-height-footer;
-    text-align: center;
+    display: flex;
+    height: $footer-height;
+    flex-wrap: wrap;
+
+    .controller {
+        align-items: center;
+        align-self: flex-start;
+        display: flex;
+        flex: 1 1 100%;
+        justify-content: space-evenly;
+
+        span {
+            font-size: 2em;
+
+            &:nth-child(3) {
+                font-size: 4em;
+            }
+        }
+    }
+
+    .toolbar {
+        align-items: flex-end;
+        align-self: flex-end;
+        display: flex;
+        flex: 1 1 100%;
+        justify-content: space-evenly;
+    }
+
+    span {
+        cursor: pointer;
+        transition: transform 0.5s;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
 }

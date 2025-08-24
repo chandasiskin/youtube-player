@@ -6,13 +6,17 @@ $body-padding-vertical: 24px;
 $text-color: #fafafa;
 $text-family: 'Poppins', sans-serif;
 $site-container-width: 500px;
+$site-container-height: calc(100vh - $body-padding-vertical - $body-padding-vertical);
 
 // Header
 $header-height: 200px;
 $header-progress-height: 20px;
 
 // Footer
-$footer-height: 50px;
+$controller-height: 100px;
+$toolbar-height: 20px;
+$footer-height: calc($controller-height + $toolbar-height);
 
 // Main
-$main-height: calc(100vh - $header-height - $footer-height - $body-padding-vertical - $body-padding-vertical);
+$site-container-padding: 20px;
+$main-height: calc(100% - $header-height - $footer-height);

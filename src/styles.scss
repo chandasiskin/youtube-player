@@ -5,9 +5,11 @@
 body {
     background-color: $background-color-primary;
     color: $text-color;
+    display: flex;
     font-family: $text-family;
     font-optical-sizing: auto;
     font-style: normal;
+    justify-content: center;
     overflow: hidden;
     padding: $body-padding-vertical 0;
     width: 100vw;
@@ -16,9 +18,9 @@ body {
 .site-container {
     background-color: $background-color-playlist;
     border-radius: 10px;
-    margin: 0 auto;
+    height: $site-container-height;
     max-width: $site-container-width;
-    padding: 20px;
+    padding: $site-container-padding;
     width: 100%;
 }
 

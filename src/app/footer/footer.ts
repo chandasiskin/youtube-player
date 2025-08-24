@@ -8,5 +8,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './footer.scss'
 })
 export class Footer {
-  copyrightYear: number = new Date().getFullYear();
+  
 }
