@@ -66,7 +66,10 @@ export class Header implements OnInit {
 
     this.controllerService.controller$.subscribe((command: PlayerCommands) => {
       switch(command) {
-        case PlayerCommands.Next: this.playNextVideo(); break;
+        case PlayerCommands.Next:
+          let endedNaturally: boolean = false;
+          this.playNextVideo(endedNaturally);
+          break;
         case PlayerCommands.Previous: this.playPreviousVideo(); break;
         case PlayerCommands.Pause: this.pauseVideo(); break;
         case PlayerCommands.Play: this.playVideo(); break;
@@ -105,7 +108,8 @@ export class Header implements OnInit {
 
   private onPlayerStateChange(event: any): void {
     if (event.data === PLAYER_STATE_ENDED) {
-      this.playNextVideo();
+      let endedNaturally: boolean = true;
+      this.playNextVideo(endedNaturally);
     }
   }
 
@@ -117,14 +121,17 @@ export class Header implements OnInit {
 
   }
 
-  private playNextVideo(): void {
+  private playNextVideo(endedNaturally: boolean): void {
     const index = this.playlist.findIndex(video => video.uuid === this.currentVideo.uuid);
     const shouldShuffle = this.playlistService.shouldShuffle();
     let nextIndex;
 
     // If 'repeat same song' is toggled
     if (this.playlistService.getRepeat() === 'one') {
-      nextIndex = index;
+      // If song ended naturally, repeat song
+      if (endedNaturally) {
+        nextIndex = index;
+      }
     }
     
     // If 'shuffle' is toggled
