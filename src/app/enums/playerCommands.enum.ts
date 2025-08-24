@@ -3,4 +3,5 @@ export enum PlayerCommands {
     Pause = 'PAUSE',
     Next = 'NEXT',
     Previous = 'PREVIOUS',
+    PlayPause = 'PLAY/PAUSE',
 }

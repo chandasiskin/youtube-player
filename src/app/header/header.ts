@@ -73,6 +73,7 @@ export class Header implements OnInit {
         case PlayerCommands.Previous: this.playPreviousVideo(); break;
         case PlayerCommands.Pause: this.pauseVideo(); break;
         case PlayerCommands.Play: this.playVideo(); break;
+        case PlayerCommands.PlayPause: this.playPauseVideo(); break;
       }
     });
   }
@@ -114,11 +115,11 @@ export class Header implements OnInit {
   }
 
   private playVideo(): void {
-
+    this.player.playVideo();
   }
 
   private pauseVideo(): void {
-
+    this.player.pauseVideo();
   }
 
   private playNextVideo(endedNaturally: boolean): void {
@@ -177,5 +178,13 @@ export class Header implements OnInit {
 
     const previousVideo = this.playlist[nextIndex];
     this.playlistService.playVideo(previousVideo);
+  }
+
+  private playPauseVideo(): void {
+    if (this.player.getPlayerState() === PLAYER_STATE_PLAYING) {
+      this.pauseVideo();
+    } else if (this.player.getPlayerState() === PLAYER_STATE_PAUSED) {
+      this.playVideo();
+    }
   }
 }

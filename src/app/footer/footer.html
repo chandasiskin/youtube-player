@@ -2,7 +2,7 @@
     <div class="controller">
         <span (click)="toggleShuffle()" class="material-symbols-rounded" [ngClass]="doShuffle ? 'active' : 'inactive'">shuffle</span>
         <span (click)="previousSong()" class="material-symbols-rounded">skip_previous</span>
-        <span class="material-symbols-rounded">play_circle</span>
+        <span (click)="playPause()" class="material-symbols-rounded">play_pause</span>
         <span (click)="nextSong()" class="material-symbols-rounded">skip_next</span>
         <span (click)="toggleRepeat()" class="material-symbols-rounded" [ngClass]="doRepeat === 'none' ? 'inactive' : 'active'">{{ getRepeatIcon() }}</span>
     </div>

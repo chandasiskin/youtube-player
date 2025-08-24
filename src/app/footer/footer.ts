@@ -44,4 +44,8 @@ export class Footer {
       return 'repeat';
     }
   }
+
+  playPause(): void {
+    this.controllerService.sendCommand(PlayerCommands.PlayPause);
+  }
 }
