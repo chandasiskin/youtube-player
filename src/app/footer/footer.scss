@@ -37,6 +37,47 @@ footer {
             transform: scale(1.2);
         }
     }
+
+    #addVideo {
+        align-items: center;
+        background-color: #00000055;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+        padding: 5px 0 5px 5px;
+        position: absolute;
+        bottom: calc($body-padding-vertical + $site-container-padding);
+        transition: all 0.5s;
+        width: calc($site-container-width - $site-container-padding - $site-container-padding);
+        z-index: -1;
+
+        input {
+            background-color: #00000055;
+            border: 0;
+            border-radius: 5px;
+            color: $text-color;
+            flex: 1 1 auto;
+            outline: none;
+            padding: 5px 15px;
+        }
+
+        span {
+            flex: 0 0 40px;
+            text-align: center;
+            transition-property: all;
+
+            &:hover {
+                color: $text-active;
+            }
+        }
+
+        &.visible {
+            opacity: 1;
+            transform: translateY(-25px);
+            z-index: 999;
+        }
+    }
 }
 
 .inactive {

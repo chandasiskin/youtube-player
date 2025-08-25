@@ -3,10 +3,11 @@ import { Controller } from '../services/controller';
 import { PlayerCommands } from '../enums/playerCommands.enum';
 import { CommonModule } from '@angular/common';
 import { Playlist } from '../services/playlist';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-footer',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './footer.html',
   styleUrl: './footer.scss'
 })
@@ -16,6 +17,8 @@ export class Footer {
 
   doShuffle: boolean = false;
   doRepeat: 'none' | 'one' | 'all' = 'none';
+  isAddVideoVisible: boolean = false;
+  youtubeUrl: string = '';
 
   nextSong(): void {
     this.controllerService.sendCommand(PlayerCommands.Next);
@@ -76,5 +79,15 @@ export class Footer {
 
       reader.readAsText(file);
     }
+  }
+
+  hideShowAddVideo(): void {
+    this.isAddVideoVisible = !this.isAddVideoVisible;
+  }
+
+  addVideo(): void {
+    this.playlistService.addVideoByUrl(this.youtubeUrl)
+    this.isAddVideoVisible = false;
+    setTimeout(() => this.youtubeUrl = '', 500);
   }
 }

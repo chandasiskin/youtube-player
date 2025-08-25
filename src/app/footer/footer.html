@@ -9,8 +9,13 @@
 
     <div class="toolbar">
         <span (click)="download()" class="material-symbols-rounded">download</span>
-        <span (click)="fileInput.click()" class="material-symbols-rounded">upload</span>
-        <span class="material-symbols-rounded">add_2</span>
-        <input type="file" (change)="onFileChange($event)" #fileInput style="display: none;" />
+        <span (click)="uploadPlaylist.click()" class="material-symbols-rounded">upload</span>
+        <span (click)="hideShowAddVideo()" class="material-symbols-rounded">add_2</span>
+        <input type="file" (change)="onFileChange($event)" #uploadPlaylist style="display: none;" />
+    </div>
+    
+    <div id="addVideo" [ngClass]="{ 'visible': isAddVideoVisible }">
+        <input id="addVideoInput" placeholder="Submit youtube-link" type="text" required [(ngModel)]="youtubeUrl" />
+        <span (click)="addVideo()" class="material-symbols-rounded">check</span>
     </div>
 </footer>
