@@ -9,8 +9,8 @@
 
     <div class="toolbar">
         <span (click)="download()" class="material-symbols-rounded">download</span>
-        <span class="material-symbols-rounded">upload</span>
+        <span (click)="fileInput.click()" class="material-symbols-rounded">upload</span>
         <span class="material-symbols-rounded">add_2</span>
-        <span class="material-symbols-rounded">home</span>
+        <input type="file" (change)="onFileChange($event)" #fileInput style="display: none;" />
     </div>
 </footer>

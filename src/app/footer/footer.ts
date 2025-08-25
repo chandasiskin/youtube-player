@@ -59,4 +59,22 @@ export class Footer {
     a.click();
     URL.revokeObjectURL(url);
   }
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      
+      reader.onload = (e: any) => {
+        const playlist = JSON.parse(e.target.result);
+
+        if (Array.isArray(playlist)) {
+          playlist.forEach(video => this.playlistService.addVideoToPlaylist(video));
+        }
+      }
+
+      reader.readAsText(file);
+    }
+  }
 }

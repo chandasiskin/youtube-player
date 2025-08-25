@@ -59,6 +59,15 @@ export class Playlist {
       });
   }
 
+  addVideoToPlaylist(video: Video): void {
+    if (!video.uuid || !video.id || !video.title || !video.thumbnailUrl || !video.url || !video.duration || !video.durationInSeconds) {
+      console.log("Invalid format for:", video);
+    }
+
+    const currentPlaylist = this.playlist.value;
+    this.playlist.next([... currentPlaylist, video]);
+  }
+
   playVideo(video: Video | null): void {
     this.currentVideo.next(video);
   }

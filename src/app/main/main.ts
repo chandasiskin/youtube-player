@@ -3,9 +3,6 @@ import { Video } from '../models/video';
 import { CommonModule } from '@angular/common';
 import { Playlist } from '../services/playlist';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-// import { SafeResourceUrl } from '@angular/platform-browser';
-// import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-// import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 declare global {
   interface Window {
