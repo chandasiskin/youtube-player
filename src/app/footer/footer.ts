@@ -48,4 +48,15 @@ export class Footer {
   playPause(): void {
     this.controllerService.sendCommand(PlayerCommands.PlayPause);
   }
+
+  download(): void {
+    const playlist: string = this.playlistService.exportPlaylist();
+    const blob = new Blob([playlist], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'playlist.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 }

@@ -108,4 +108,12 @@ export class Playlist {
   getRepeat(): 'none' | 'one' | 'all' {
     return this.repeat;
   }
+
+  getPlaylist(): Video[] {
+    return this.playlist.getValue();
+  }
+
+  exportPlaylist(): string {
+    return JSON.stringify(this.playlist.getValue(), null, 2);
+  }
 }
