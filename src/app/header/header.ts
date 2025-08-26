@@ -41,7 +41,13 @@ export class Header implements OnInit {
     durationInSeconds: 0,
   }
 
+  private myInterval: number = -1;
+
   currentVideo: Video = this.videoTemplate;
+  videoElapsed: string = '';
+  videoProgressBar: number = 0;
+  videoLeft: string = '';
+  videoDuration: number = 0;
 
   @Output() playerReady = new EventEmitter<boolean>();
 
@@ -55,18 +61,27 @@ export class Header implements OnInit {
         if (video) {
           this.currentVideo = video;
 
-          this.player.cueVideoById(video.id)
+          this.videoElapsed = this.getVideoElapsed(0);
+          this.videoLeft = '-' + this.getVideoDuration(video.durationInSeconds);
+
+          this.player.cueVideoById(video.id);
           
-          setTimeout(() => this.player.playVideo(), 500);
+          setTimeout(() => this.playVideo(), 500);
         } else {
           this.currentVideo = this.videoTemplate;
+          this.videoElapsed = '';
+          this.videoLeft = '';
         }
+
+        this.videoProgressBar = 0;
+        this.videoDuration = this.currentVideo.durationInSeconds;
       });
     });
 
     this.controllerService.controller$.subscribe((command: PlayerCommands) => {
       switch(command) {
         case PlayerCommands.Next:
+          clearInterval(this.myInterval);
           let endedNaturally: boolean = false;
           this.playNextVideo(endedNaturally);
           break;
@@ -116,10 +131,20 @@ export class Header implements OnInit {
 
   private playVideo(): void {
     this.player.playVideo();
+    
+    clearInterval(this.myInterval);
+    this.myInterval = setInterval(() =>
+      this.zone.run(() => {
+        this.videoElapsed = this.getVideoElapsed(this.player.getCurrentTime());
+        this.videoProgressBar = this.player.getCurrentTime();
+        this.videoLeft = '-' + this.getVideoDuration(this.player.getDuration() - this.player.getCurrentTime());
+    }), 200);
   }
 
   private pauseVideo(): void {
     this.player.pauseVideo();
+
+    clearInterval(this.myInterval);
   }
 
   private playNextVideo(endedNaturally: boolean): void {
@@ -162,7 +187,6 @@ export class Header implements OnInit {
     }
     
     const nextVideo = this.playlist[nextIndex];
-
     this.playlistService.playVideo(nextVideo);
   }
 
@@ -192,5 +216,39 @@ export class Header implements OnInit {
     } else if (this.player.getPlayerState() === PLAYER_STATE_PAUSED) {
       this.playVideo();
     }
+  }
+
+  private getVideoElapsed(videoProgress: number): string {
+    return this.formatTime(videoProgress);
+  }
+
+  private getVideoDuration(videoDuration: number): string {
+    return this.formatTime(videoDuration);
+  }
+
+  private formatTime(time: number): string {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time - (hours * 3600)) / 60);
+    const seconds = Math.floor(time % 60);
+
+    let result = '';
+
+    if (hours > 0) {
+      result += `${hours}:`;
+    }
+
+    if (minutes < 10) {
+      result += '0';
+    }
+
+    result += `${minutes}:`;
+
+    if (seconds < 10) {
+      result += '0';
+    }
+
+    result += `${seconds}`;
+
+    return result;
   }
 }

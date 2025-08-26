@@ -8,9 +8,9 @@
             <div class="header-video-title">{{ currentVideo?.title }}</div>
         </div>
         <div class="header-video-progress">
-            <div>0:00</div>
-            <div><input type="range" /></div>
-            <div>-0:00</div>
+            <div>{{ videoElapsed }}</div>
+            <div><input type="range" [value]="videoProgressBar" min="0" [max]="videoDuration" step="1" /></div>
+            <div>{{ videoLeft }}</div>
         </div>
     </div>
 </header>
