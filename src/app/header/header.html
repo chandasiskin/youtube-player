@@ -9,7 +9,7 @@
         </div>
         <div class="header-video-progress">
             <div>{{ videoElapsed }}</div>
-            <div><input type="range" [value]="videoProgressBar" min="0" [max]="videoDuration" step="1" /></div>
+            <div><input type="range" [value]="videoProgressBar" min="0" [max]="videoDuration" step="1" (input)="onSeek($event)" /></div>
             <div>{{ videoLeft }}</div>
         </div>
     </div>

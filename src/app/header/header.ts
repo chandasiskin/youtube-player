@@ -61,8 +61,8 @@ export class Header implements OnInit {
         if (video) {
           this.currentVideo = video;
 
-          this.videoElapsed = this.getVideoElapsed(0);
-          this.videoLeft = '-' + this.getVideoDuration(video.durationInSeconds);
+          this.videoElapsed = this.formatTime(0);
+          this.videoLeft = '-' + this.formatTime(video.durationInSeconds);
 
           this.player.cueVideoById(video.id);
           
@@ -135,9 +135,9 @@ export class Header implements OnInit {
     clearInterval(this.myInterval);
     this.myInterval = setInterval(() =>
       this.zone.run(() => {
-        this.videoElapsed = this.getVideoElapsed(this.player.getCurrentTime());
+        this.videoElapsed = this.formatTime(this.player.getCurrentTime());
         this.videoProgressBar = this.player.getCurrentTime();
-        this.videoLeft = '-' + this.getVideoDuration(this.player.getDuration() - this.player.getCurrentTime());
+        this.videoLeft = '-' + this.formatTime(this.player.getDuration() - this.player.getCurrentTime());
     }), 200);
   }
 
@@ -218,14 +218,6 @@ export class Header implements OnInit {
     }
   }
 
-  private getVideoElapsed(videoProgress: number): string {
-    return this.formatTime(videoProgress);
-  }
-
-  private getVideoDuration(videoDuration: number): string {
-    return this.formatTime(videoDuration);
-  }
-
   private formatTime(time: number): string {
     const hours = Math.floor(time / 3600);
     const minutes = Math.floor((time - (hours * 3600)) / 60);
@@ -250,5 +242,11 @@ export class Header implements OnInit {
     result += `${seconds}`;
 
     return result;
+  }
+
+  onSeek(event: any): void {
+    const timestamp = event.target.value;
+    
+    this.player.seekTo(timestamp, true);
   }
 }
