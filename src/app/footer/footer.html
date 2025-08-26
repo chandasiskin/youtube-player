@@ -11,7 +11,7 @@
         <span (click)="download()" class="material-symbols-rounded">download</span>
         <span (click)="uploadPlaylist.click()" class="material-symbols-rounded">upload</span>
         <span (click)="hideShowAddVideo()" class="material-symbols-rounded">add_2</span>
-        <input type="file" (change)="onFileChange($event)" #uploadPlaylist style="display: none;" />
+        <input accept="application/json" type="file" (change)="onFileChange($event)" #uploadPlaylist style="display: none;" />
     </div>
     
     <div id="addVideo" [ngClass]="{ 'visible': isAddVideoVisible }">
