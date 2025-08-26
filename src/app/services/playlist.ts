@@ -125,4 +125,8 @@ export class Playlist {
   exportPlaylist(): string {
     return JSON.stringify(this.playlist.getValue(), null, 2);
   }
+
+  clearPlaylist(): void {
+    this.playlist.next([]);
+  }
 }

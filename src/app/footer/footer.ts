@@ -96,4 +96,8 @@ export class Footer {
     this.isAddVideoVisible = false;
     setTimeout(() => this.youtubeUrl = '', 500);
   }
+
+  newPlaylist(): void {
+    this.playlistService.clearPlaylist();
+  }
 }

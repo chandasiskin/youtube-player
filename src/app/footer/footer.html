@@ -8,10 +8,11 @@
     </div>
 
     <div class="toolbar">
+        <span (click)="hideShowAddVideo()" class="material-symbols-rounded">music_note_add</span>
+        <input accept="application/json" type="file" (change)="onFileChange($event)" #uploadPlaylist style="display: none;" />
+        <span (click)="newPlaylist()" class="material-symbols-rounded">playlist_add</span>
         <span (click)="download()" class="material-symbols-rounded">download</span>
         <span (click)="uploadPlaylist.click()" class="material-symbols-rounded">upload</span>
-        <span (click)="hideShowAddVideo()" class="material-symbols-rounded">add_2</span>
-        <input accept="application/json" type="file" (change)="onFileChange($event)" #uploadPlaylist style="display: none;" />
     </div>
     
     <div id="addVideo" [ngClass]="{ 'visible': isAddVideoVisible }">
