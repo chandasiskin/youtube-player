@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, viewChild, ViewChild } from '@angular/core';
 import { Controller } from '../services/controller';
 import { PlayerCommands } from '../enums/playerCommands.enum';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './footer.scss'
 })
 export class Footer {
+  @ViewChild('addVideoInput') addVideoInput!: ElementRef<HTMLInputElement>;
+
   private controllerService = inject(Controller);
   private playlistService = inject(Playlist);
 
@@ -83,6 +85,10 @@ export class Footer {
 
   hideShowAddVideo(): void {
     this.isAddVideoVisible = !this.isAddVideoVisible;
+    
+    if (this.isAddVideoVisible) {
+      setTimeout(() => this.addVideoInput.nativeElement.focus(), 0);
+    }
   }
 
   addVideo(): void {
