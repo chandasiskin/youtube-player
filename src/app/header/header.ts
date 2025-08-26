@@ -137,7 +137,13 @@ export class Header implements OnInit {
     
     // If 'shuffle' is toggled
     if (nextIndex === undefined && shouldShuffle) {
-      nextIndex = Math.floor(Math.random() * this.playlist.length);
+      // If playlist contains more than one song,
+      // check that it does not select same song twice
+      if (this.playlist.length > 1) {
+        do {
+          nextIndex = Math.floor(Math.random() * this.playlist.length);
+        } while (nextIndex === index);
+      }
     }
     
     // If on the last song
