@@ -15,7 +15,7 @@
     </div>
     
     <div id="addVideo" [ngClass]="{ 'visible': isAddVideoVisible }">
-        <input id="addVideoInput" placeholder="Submit youtube-link" type="text" required [(ngModel)]="youtubeUrl" />
+        <input id="addVideoInput" placeholder="Submit youtube-link" type="text" required [(ngModel)]="youtubeUrl" (keydown.enter)="addVideo()" />
         <span (click)="addVideo()" class="material-symbols-rounded">check</span>
     </div>
 </footer>
