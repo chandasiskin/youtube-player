@@ -1,44 +1,14 @@
-<div class="playlist-container" cdkDropListGroup>
-    <div class="playlist" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="playlist">
+<ul>
+    <li>Fix scrolling dragging</li>
+    <li>Error handling everything</li>
+    <li>Randomize playlist</li>
+</ul>
+<div class="playlist-container" cdkDropListGroup (click)="moveScroll($event)">
+    <div id="playlist" class="playlist" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="playlist">
         <div *ngFor="let video of playlist" class="song-wrapper" cdkDrag (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()" (click)="playVideo(video)">
             <div class="playlist-video-thumbnail"><img [src]="video.thumbnailUrl" alt="video.title" /></div>
             <div class="playlist-video-title">{{ video.title }}</div>
-            <div class="playlist-video-move"><span class="material-symbols-rounded">swap_vert</span></div>
+            <div class="playlist-video-move" cdkDragHandle><span class="material-symbols-rounded">drag_indicator</span></div>
         </div>
     </div>
 </div>
-
-
-<!--<main cdkDropListGroup>
-    <div class="player">
-        <div id="player"></div>
-        <button (click)="replay(10)"><span class="material-symbols-rounded">replay_10</span></button>
-        <button (click)="playPreviousVideo()"><span class="material-symbols-rounded">skip_previous</span></button>
-        <button (click)="playPause(currentVideo)"><span class="material-symbols-rounded">{{ currentState === "brand_awareness" ? "pause" : "play_arrow" }}</span></button>
-        <button (click)="playNextVideo()"><span class="material-symbols-rounded">skip_next</span></button>
-        <button (click)="forward(10)"><span class="material-symbols-rounded">forward_10</span></button>
-
-        <div *ngIf="currentVideo" class="progress">
-            <div>{{ currentPlaytime }}</div>
-            <div><mat-progress-bar color="primary" mode="determinate" [value]="progress"></mat-progress-bar></div>
-            <div>{{ currentVideo?.duration }}</div>
-        </div>
-
-        <div cdkDropList class="remove-from-playlist" (cdkDropListDropped)="removeFromPlaylist($event)">
-            <span class="material-symbols-rounded">delete</span>
-        </div>
-    </div>
-
-    <div class="info-banner">Songs can be rearranged and deleted by dragging them</div>
-
-    <div cdkDropList (cdkDropListDropped)="drop($event)" class="song_container" [cdkDropListData]="playlist" (cdkDropListDropped)="drop($event)">
-        <div *ngFor="let video of playlist" (click)="playPause(video)" class="song_wrapper"
-            [ngClass]="{'currently_playing': currentVideo && currentVideo.uuid === video.uuid}"
-            cdkDrag [cdkDragData]="video" (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()">
-            <div class="song_play"><span class="material-symbols-rounded">{{ currentVideo && currentVideo.uuid === video.uuid ? currentState : "play_arrow" }}</span></div>
-            <div class="song_thumbnail"><img [src]="video.thumbnailUrl" [alt]="video.title" /></div>
-            <div class="song_title">{{ video.title }}</div>
-            <div class="song_duration">{{ video.duration }}</div>
-        </div>
-    </div>
-</main>-->

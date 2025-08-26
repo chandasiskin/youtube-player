@@ -1,4 +1,4 @@
-import { Component, inject, NgZone, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Video } from '../models/video';
 import { CommonModule } from '@angular/common';
 import { Playlist } from '../services/playlist';
@@ -30,6 +30,11 @@ export class Main implements OnInit {
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=983bBbJx0Mk");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=TbMEMCvFbZk");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=-FTNbqxCfhA");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=983bBbJx0Mk");
+    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=TbMEMCvFbZk");
   }
 
   drop(event: CdkDragDrop<Video[]>): void {
@@ -37,14 +42,22 @@ export class Main implements OnInit {
   }
 
   onDragStart(): void {
-
+    console.log("drag started");
   }
 
   onDragEnd(): void {
-
+    console.log("drag ended");
   }
 
   playVideo(video: Video): void {
     this.playlistService.playVideo(video);
+  }
+
+  moveScroll(event: any): void {
+    const container = document.getElementById('playlist');
+    const containerHeight = container?.offsetHeight;
+    const scrollTop = container?.scrollTop;
+    const scrollHeight = container?.scrollHeight;
+    console.log(container, containerHeight, scrollTop, scrollHeight, event);
   }
 }
