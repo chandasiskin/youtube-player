@@ -1,11 +1,12 @@
 <ul>
-    <li>Fix scrolling dragging</li>
     <li>Error handling everything</li>
+    <li>When moving song, scroll automatically</li>
     <li>Randomize playlist</li>
 </ul>
 <div class="playlist-container" cdkDropListGroup (click)="moveScroll($event)">
     <div id="playlist" class="playlist" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="playlist">
-        <div *ngFor="let video of playlist" class="song-wrapper" cdkDrag (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()" (click)="playVideo(video)">
+        <div *ngFor="let video of playlist" class="song-wrapper" cdkDrag (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()" (click)="playVideo(video)"
+        [class.current-video]="video.uuid === getCurrentVideo()?.uuid">
             <div class="playlist-video-thumbnail"><img [src]="video.thumbnailUrl" alt="video.title" /></div>
             <div class="playlist-video-title">{{ video.title }}</div>
             <div class="playlist-video-move" cdkDragHandle><span class="material-symbols-rounded">drag_indicator</span></div>

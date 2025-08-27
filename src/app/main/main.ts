@@ -60,4 +60,8 @@ export class Main implements OnInit {
     const scrollHeight = container?.scrollHeight;
     console.log(container, containerHeight, scrollTop, scrollHeight, event);
   }
+
+  getCurrentVideo(): Video | null {
+    return this.playlistService.getCurrentVideo();
+  }
 }
