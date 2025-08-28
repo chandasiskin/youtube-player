@@ -1,3 +1,15 @@
-<app-header></app-header>
-<router-outlet />
+<div *ngFor="let light of lights" class="light" [ngStyle]="{
+    top: light.top,
+    left: light.left,
+    width: light.size + 'px',
+    height: light.size + 'px',
+    background: light.color,
+    animationDelay: light.delay
+}"></div>
+
+<div *ngIf="!playerReady" class="loading-screen">
+    <div class="loading-spinner"></div>
+</div>
+<app-header (playerReady)="onPlayerReady()"></app-header>
+<main><router-outlet /></main>
 <app-footer></app-footer>

@@ -11,6 +11,9 @@ export class Playlist {
   private playlist = new BehaviorSubject<Video[]>([]);
   private currentVideo = new BehaviorSubject<Video | null>(null);
 
+  private shuffle: boolean = false;
+  private repeat: 'none' | 'one' | 'all' = 'none';
+
   constructor(private http: HttpClient) {}
 
   get playlist$(): Observable<Video[]> {
@@ -41,7 +44,7 @@ export class Playlist {
           uuid: performance.now(),
           id: videoId,
           title: snippet.title,
-          thumbnailUrl: snippet.thumbnails.default.url,
+          thumbnailUrl: snippet.thumbnails.medium.url,
           url: youtubeUrl,
           duration: duration,
           durationInSeconds: durationInSeconds,
@@ -56,7 +59,16 @@ export class Playlist {
       });
   }
 
-  setCurrentVideo(video: Video | null) {
+  addVideoToPlaylist(video: Video): void {
+    if (!video.uuid || !video.id || !video.title || !video.thumbnailUrl || !video.url || !video.duration || !video.durationInSeconds) {
+      console.log("Invalid format for:", video);
+    }
+
+    const currentPlaylist = this.playlist.value;
+    this.playlist.next([... currentPlaylist, video]);
+  }
+
+  playVideo(video: Video | null): void {
     this.currentVideo.next(video);
   }
 
@@ -82,5 +94,39 @@ export class Playlist {
     const updatedPlaylist = this.playlist.value.filter((v: Video) => v !== video);
     
     this.playlist.next(updatedPlaylist);
+  }
+
+  toggleShuffle(): void {
+    this.shuffle = !this.shuffle;
+  }
+
+  shouldShuffle(): boolean {
+    return this.shuffle;
+  }
+
+  toggleRepeat(): void {
+    if (this.repeat === 'none') {
+      this.repeat = 'one';
+    } else if (this.repeat === 'one') {
+      this.repeat = 'all';
+    } else {
+      this.repeat = 'none';
+    }
+  }
+
+  getRepeat(): 'none' | 'one' | 'all' {
+    return this.repeat;
+  }
+
+  getPlaylist(): Video[] {
+    return this.playlist.getValue();
+  }
+
+  exportPlaylist(): string {
+    return JSON.stringify(this.playlist.getValue(), null, 2);
+  }
+
+  clearPlaylist(): void {
+    this.playlist.next([]);
   }
 }

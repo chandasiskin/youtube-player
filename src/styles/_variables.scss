@@ -1,14 +1,24 @@
-$background-color-primary: #1a1a1a;
+// Global
+$background-color-primary: #0a0a0a;
+$background-color-playlist: #20173caa;
+$background-color-playlist-items: #20173c;
+$body-padding-vertical: 24px;
 $text-color: #fafafa;
-$text-family: 'Roboto Flex', sans-serif;
-$title-family: 'Montserrat', sans-serif;
+$text-family: 'Poppins', sans-serif;
+$site-container-width: 500px;
+$site-container-height: calc(100vh - $body-padding-vertical - $body-padding-vertical);
+$text-inactive: #fafafa33;
+$text-active: #00fa00aa;
 
-$background-color-header: rgba(0, 0, 0, 0.1);
-$height-header: 100px;
-$width-button-add-song: 150px;
+// Header
+$header-height: 200px;
+$header-progress-height: 20px;
 
-$background-color-footer: $background-color-header;
-$height-footer: 100px;
-$line-height-footer: $height-footer;
+// Footer
+$controller-height: 100px;
+$toolbar-height: 20px;
+$footer-height: calc($controller-height + $toolbar-height);
 
-$height-main: calc(100vh - $height-header - $height-footer);
+// Main
+$site-container-padding: 20px;
+$main-height: calc(100% - $header-height - $footer-height);

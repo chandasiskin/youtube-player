@@ -1,9 +1,89 @@
 @use '../../styles/variables' as *;
 
 footer {
-    background-color: $background-color-footer;
-    height: $height-footer;
-    font-family: $title-family;
-    line-height: $line-height-footer;
-    text-align: center;
+    display: flex;
+    height: $footer-height;
+    flex-wrap: wrap;
+
+    .controller {
+        align-items: center;
+        align-self: flex-start;
+        display: flex;
+        flex: 1 1 100%;
+        justify-content: space-evenly;
+
+        span {
+            font-size: 2em;
+
+            &:nth-child(3) {
+                font-size: 4em;
+            }
+        }
+    }
+
+    .toolbar {
+        align-items: flex-end;
+        align-self: flex-end;
+        display: flex;
+        flex: 1 1 100%;
+        justify-content: space-evenly;
+    }
+
+    span {
+        cursor: pointer;
+        transition: transform 0.5s;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+
+    #addVideo {
+        align-items: center;
+        background-color: #00000055;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+        padding: 5px 0 5px 5px;
+        position: absolute;
+        bottom: calc($body-padding-vertical + $site-container-padding);
+        transition: all 0.5s;
+        width: calc($site-container-width - $site-container-padding - $site-container-padding);
+        z-index: -1;
+
+        input {
+            background-color: #00000055;
+            border: 0;
+            border-radius: 5px;
+            color: $text-color;
+            flex: 1 1 auto;
+            outline: none;
+            padding: 5px 15px;
+        }
+
+        span {
+            flex: 0 0 40px;
+            text-align: center;
+            transition-property: all;
+
+            &:hover {
+                color: $text-active;
+            }
+        }
+
+        &.visible {
+            opacity: 1;
+            transform: translateY(-25px);
+            z-index: 999;
+        }
+    }
+}
+
+.inactive {
+    color: $text-inactive;
+}
+
+.active {
+    color: $text-active;
 }

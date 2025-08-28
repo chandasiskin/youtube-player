@@ -1,5 +1,89 @@
 @use '../../styles/variables' as *;
 
+#player {
+    display: none;
+    height: 0;
+    width: 0;
+}
+
+header {
+    height: $header-height;
+    width: 100%;
+
+    .header-player {
+        display: none;
+    }
+
+    .header-container {
+        height: 100%;
+        overflow: hidden;
+        width: 100%;
+
+        .header-video-data {
+            align-items: center;
+            column-gap: 20px;
+            display: flex;
+            height: calc($header-height - $header-progress-height - 30px);
+            margin-bottom: 10px;
+
+            .header-video-thumbnail {
+                align-items: center;
+                display: flex;
+                height: 100%;
+                flex: 1 1 50%;
+                justify-content: center;
+                overflow: hidden;
+                
+                img {
+                    border-radius: 5px;
+                    max-height: 100%;
+                    max-width: 100%;
+                    object-fit: contain;
+                    width: 100%;
+                }
+            }
+
+            .header-video-title {
+                align-items: center;
+                display: flex;
+                flex: 1 1 50%;
+                font-weight: bold;
+                height: 100%;
+                overflow: hidden;
+                text-align: center;
+            }
+        }
+
+        .header-video-progress {
+            column-gap: 10px;
+            display: flex;
+            font-size: 0.8em;
+            height: $header-progress-height;
+            width: 100%;
+
+            input {
+                width: 100%;
+            }
+
+            div:first-child,
+            div:last-child {
+                text-align: right;
+                width: 75px;
+            }
+
+            div:nth-child(2) {
+                flex-grow: 1;
+            }
+
+            div:last-child {
+                text-align: left;
+            }
+        }
+    }
+}
+
+/*@use '../../styles/variables' as *;
+
 header {
     background-color: $background-color-header;
     height: $height-header;
@@ -32,4 +116,4 @@ header {
         margin-left: 9px;
         padding: 18px 24px;
     }
-}
+}*/

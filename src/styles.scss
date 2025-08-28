@@ -5,7 +5,28 @@
 body {
     background-color: $background-color-primary;
     color: $text-color;
+    display: flex;
     font-family: $text-family;
     font-optical-sizing: auto;
     font-style: normal;
+    height: 100vh;
+    justify-content: center;
+    overflow: hidden;
+    padding: $body-padding-vertical 0;
+    width: 100vw;
+}
+
+.site-container {
+    background-color: $background-color-playlist;
+    border-radius: 10px;
+    height: $site-container-height;
+    max-width: $site-container-width;
+    padding: $site-container-padding;
+    width: 100%;
+}
+
+span {
+    &.material-symbols-rounded {
+        vertical-align: bottom;
+    }
 }

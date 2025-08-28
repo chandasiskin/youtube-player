@@ -1,12 +1,103 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, inject, viewChild, ViewChild } from '@angular/core';
+import { Controller } from '../services/controller';
+import { PlayerCommands } from '../enums/playerCommands.enum';
 import { CommonModule } from '@angular/common';
+import { Playlist } from '../services/playlist';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-footer',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './footer.html',
   styleUrl: './footer.scss'
 })
 export class Footer {
-  copyrightYear: number = new Date().getFullYear();
+  @ViewChild('addVideoInput') addVideoInput!: ElementRef<HTMLInputElement>;
+
+  private controllerService = inject(Controller);
+  private playlistService = inject(Playlist);
+
+  doShuffle: boolean = false;
+  doRepeat: 'none' | 'one' | 'all' = 'none';
+  isAddVideoVisible: boolean = false;
+  youtubeUrl: string = '';
+
+  nextSong(): void {
+    this.controllerService.sendCommand(PlayerCommands.Next);
+  }
+
+  previousSong(): void {
+    this.controllerService.sendCommand(PlayerCommands.Previous);
+  }
+
+  toggleShuffle(): void {
+    this.playlistService.toggleShuffle();
+
+    this.doShuffle = this.playlistService.shouldShuffle();
+  }
+
+  toggleRepeat(): void {
+    this.playlistService.toggleRepeat();
+
+    this.doRepeat = this.playlistService.getRepeat();
+  }
+
+  getRepeatIcon(): string {
+    if (this.doRepeat === 'one') {
+      return 'repeat_one';
+    } else {
+      return 'repeat';
+    }
+  }
+
+  playPause(): void {
+    this.controllerService.sendCommand(PlayerCommands.PlayPause);
+  }
+
+  download(): void {
+    const playlist: string = this.playlistService.exportPlaylist();
+    const blob = new Blob([playlist], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'playlist.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      
+      reader.onload = (e: any) => {
+        const playlist = JSON.parse(e.target.result);
+
+        if (Array.isArray(playlist)) {
+          playlist.forEach(video => this.playlistService.addVideoToPlaylist(video));
+        }
+      }
+
+      reader.readAsText(file);
+    }
+  }
+
+  hideShowAddVideo(): void {
+    this.isAddVideoVisible = !this.isAddVideoVisible;
+    
+    if (this.isAddVideoVisible) {
+      setTimeout(() => this.addVideoInput.nativeElement.focus(), 0);
+    }
+  }
+
+  addVideo(): void {
+    this.playlistService.addVideoByUrl(this.youtubeUrl)
+    this.isAddVideoVisible = false;
+    setTimeout(() => this.youtubeUrl = '', 500);
+  }
+
+  newPlaylist(): void {
+    this.playlistService.clearPlaylist();
+  }
 }
