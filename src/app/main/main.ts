@@ -3,6 +3,8 @@ import { Video } from '../models/video';
 import { CommonModule } from '@angular/common';
 import { Playlist } from '../services/playlist';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Controller } from '../services/controller';
+import { PlayerCommands } from '../enums/playerCommands.enum';
 
 declare global {
   interface Window {
@@ -19,17 +21,14 @@ declare global {
 })
 export class Main implements OnInit {
   private playlistService = inject(Playlist);
+  private controllerService = inject(Controller);
 
   playlist: Video[] = [];
+  isDragging: boolean = false;
 
   ngOnInit(): void {
     this.playlistService.playlist$.subscribe(playlist => this.playlist = playlist);
 
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=-FTNbqxCfhA");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=983bBbJx0Mk");
-    this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=TbMEMCvFbZk");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=tPEE9ZwTmy0");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=-FTNbqxCfhA");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
@@ -42,26 +41,26 @@ export class Main implements OnInit {
   }
 
   onDragStart(): void {
-    console.log("drag started");
+    this.isDragging = true;
   }
 
   onDragEnd(): void {
-    console.log("drag ended");
+    this.isDragging = false;
   }
+
+
 
   playVideo(video: Video): void {
     this.playlistService.playVideo(video);
   }
 
-  moveScroll(event: any): void {
-    const container = document.getElementById('playlist');
-    const containerHeight = container?.offsetHeight;
-    const scrollTop = container?.scrollTop;
-    const scrollHeight = container?.scrollHeight;
-    console.log(container, containerHeight, scrollTop, scrollHeight, event);
-  }
-
   getCurrentVideo(): Video | null {
     return this.playlistService.getCurrentVideo();
+  }
+
+  onDeleteVideo(event: any): void {
+    const video = event.item.data;
+
+    this.playlistService.removeVideo(video);
   }
 }

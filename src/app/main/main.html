@@ -1,15 +1,25 @@
 <ul>
+    <li>Fix scrolling dragging</li>
     <li>Error handling everything</li>
-    <li>When moving song, scroll automatically</li>
     <li>Randomize playlist</li>
+    <li>remove song</li>
+    <li>Save playlist on server (file)</li>
+    <li>Chech php-port settings</li>
+    <li>Update play/pause icon</li>
+    <li>Saved playlist does not contain links to video, but the video itself?</li>
+    <li>When on first song and pressing "skip to previous", nothing happens (it is supposed to restart the song if past 3 seconds)</li>
 </ul>
-<div class="playlist-container" cdkDropListGroup (click)="moveScroll($event)">
+<div class="playlist-container" cdkDropListGroup>
     <div id="playlist" class="playlist" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="playlist">
-        <div *ngFor="let video of playlist" class="song-wrapper" cdkDrag (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()" (click)="playVideo(video)"
-        [class.current-video]="video.uuid === getCurrentVideo()?.uuid">
+        <div *ngFor="let video of playlist" class="song-wrapper" cdkDrag [cdkDragData]="video" (cdkDragStarted)="onDragStart()" (cdkDragEnded)="onDragEnd()" (click)="playVideo(video)"
+            [class.current-video]="video.uuid === getCurrentVideo()?.uuid">
             <div class="playlist-video-thumbnail"><img [src]="video.thumbnailUrl" alt="video.title" /></div>
             <div class="playlist-video-title">{{ video.title }}</div>
             <div class="playlist-video-move" cdkDragHandle><span class="material-symbols-rounded">drag_indicator</span></div>
         </div>
+    </div>
+
+    <div class="trash-bin" [class.visible]="isDragging" cdkDropList (cdkDropListDropped)="onDeleteVideo($event)">
+        <span class="material-symbols-rounded">delete</span>
     </div>
 </div>
