@@ -199,11 +199,7 @@ export class Header implements OnInit {
     if (this.player.getCurrentTime() > 3) {
       nextIndex = index;
     } else {
-      nextIndex = index - 1;
-    }
-
-    if (index <= 0) {
-      return;
+      nextIndex = Math.max(index - 1, 0);
     }
 
     const previousVideo = this.playlist[nextIndex];
