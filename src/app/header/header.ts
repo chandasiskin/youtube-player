@@ -81,7 +81,6 @@ export class Header implements OnInit {
     this.controllerService.controller$.subscribe((command: PlayerCommands) => {
       switch(command) {
         case PlayerCommands.Next:
-          clearInterval(this.myInterval);
           let endedNaturally: boolean = false;
           this.playNextVideo(endedNaturally);
           break;
@@ -185,6 +184,8 @@ export class Header implements OnInit {
     if (nextIndex === undefined) {
       nextIndex = index + 1;
     }
+    
+    clearInterval(this.myInterval);
     
     const nextVideo = this.playlist[nextIndex];
     this.playlistService.playVideo(nextVideo);
