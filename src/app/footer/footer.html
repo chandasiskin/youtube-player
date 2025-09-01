@@ -1,6 +1,7 @@
 <footer>
     <div class="controller">
         <span (click)="toggleShuffle()" class="material-symbols-rounded" [ngClass]="doShuffle ? 'active' : 'inactive'">shuffle</span>
+        <span (click)="randomizePlaylist()" class="material-symbols-rounded">casino</span>
         <span (click)="previousSong()" class="material-symbols-rounded">skip_previous</span>
         <span (click)="playPause()" class="material-symbols-rounded">play_pause</span>
         <span (click)="nextSong()" class="material-symbols-rounded">skip_next</span>

@@ -129,4 +129,28 @@ export class Playlist {
   clearPlaylist(): void {
     this.playlist.next([]);
   }
+
+  randomizePlaylist(): void {
+    const currentPlaylist = this.playlist.value;
+    const randomizePlaylist = this.shuffleArray(currentPlaylist);
+    
+    this.playlist.next(randomizePlaylist);
+  }
+
+  private shuffleArray<T>(array: T[]): T[] {
+    let currentIndex = array.length;
+    let randomIndex: number;
+    let temporaryValue: T;
+
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
 }

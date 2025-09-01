@@ -100,4 +100,8 @@ export class Footer {
   newPlaylist(): void {
     this.playlistService.clearPlaylist();
   }
+
+  randomizePlaylist(): void {
+    this.playlistService.randomizePlaylist();
+  }
 }

@@ -1,13 +1,10 @@
 <ul>
     <li>Fix scrolling dragging</li>
     <li>Error handling everything</li>
-    <li>Randomize playlist</li>
-    <li>remove song</li>
     <li>Save playlist on server (file)</li>
     <li>Chech php-port settings</li>
     <li>Update play/pause icon</li>
     <li>Saved playlist does not contain links to video, but the video itself?</li>
-    <li>When on first song and pressing "skip to previous", nothing happens (it is supposed to restart the song if past 3 seconds)</li>
 </ul>
 <div class="playlist-container" cdkDropListGroup>
     <div id="playlist" class="playlist" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="playlist">

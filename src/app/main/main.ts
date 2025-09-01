@@ -1,10 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { Video } from '../models/video';
 import { CommonModule } from '@angular/common';
 import { Playlist } from '../services/playlist';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Controller } from '../services/controller';
-import { PlayerCommands } from '../enums/playerCommands.enum';
 
 declare global {
   interface Window {
@@ -21,10 +19,12 @@ declare global {
 })
 export class Main implements OnInit {
   private playlistService = inject(Playlist);
-  private controllerService = inject(Controller);
+  
+  private scrollInterval: any;
 
   playlist: Video[] = [];
   isDragging: boolean = false;
+  lastMouseY: number = 0;
 
   ngOnInit(): void {
     this.playlistService.playlist$.subscribe(playlist => this.playlist = playlist);
@@ -34,6 +34,8 @@ export class Main implements OnInit {
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=yebNIHKAC4A");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=983bBbJx0Mk");
     this.playlistService.addVideoByUrl("https://www.youtube.com/watch?v=TbMEMCvFbZk");
+
+    document.addEventListener('mousemove', (e) => console.log('raw mousemove:', e.clientY));
   }
 
   drop(event: CdkDragDrop<Video[]>): void {
@@ -42,13 +44,43 @@ export class Main implements OnInit {
 
   onDragStart(): void {
     this.isDragging = true;
+    this.enableAutoScroll();
   }
 
   onDragEnd(): void {
     this.isDragging = false;
+    this.disableAutoScroll();
   }
 
+  @HostListener('document:mousemove', ['$event'])
+  onmousemove(event: MouseEvent): void {
+    this.lastMouseY = event.clientY;
+    console.log(this.lastMouseY);
+  }
 
+  private enableAutoScroll() {
+    const playlist = document.querySelector("#playlist");
+    
+    this.scrollInterval = setInterval(() => {
+      if (!playlist) {
+        return;
+      }
+
+      const bounding = playlist.getBoundingClientRect();
+      const scrollZone = 50;
+      const scrollSpeed = 10;
+
+      if (this.lastMouseY < bounding.top + scrollZone) {
+        playlist.scrollTop -= scrollSpeed;
+      } else if (this.lastMouseY > bounding.bottom - scrollZone) {
+        playlist.scrollTop += scrollSpeed;
+      }
+    }, 30);
+  }
+
+  private disableAutoScroll() {
+    clearInterval(this.scrollInterval);
+  }
 
   playVideo(video: Video): void {
     this.playlistService.playVideo(video);
