@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class Footer {
   @ViewChild('addVideoInput') addVideoInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('uploadPlaylist') uploadPlaylist!: ElementRef<HTMLInputElement>;
 
   private controllerService = inject(Controller);
   private playlistService = inject(Playlist);
@@ -66,14 +67,19 @@ export class Footer {
   }
 
   onFileChange(event: any): void {
+    const input = this.uploadPlaylist.nativeElement;
     const file = event.target.files[0];
+
+    input.value = '';
 
     if (file) {
       const reader = new FileReader();
       
       reader.onload = (e: any) => {
-        const playlist = JSON.parse(e.target.result);
+        this.newPlaylist();
 
+        const playlist = JSON.parse(e.target.result);
+        console.log(playlist);
         if (Array.isArray(playlist)) {
           playlist.forEach(video => this.playlistService.addVideoToPlaylist(video));
         }
