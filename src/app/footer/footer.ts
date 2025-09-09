@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, viewChild, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { Controller } from '../services/controller';
 import { PlayerCommands } from '../enums/playerCommands.enum';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,8 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './footer.html',
   styleUrl: './footer.scss'
 })
-export class Footer {
+
+export class Footer implements OnInit {
   @ViewChild('addVideoInput') addVideoInput!: ElementRef<HTMLInputElement>;
   @ViewChild('uploadPlaylist') uploadPlaylist!: ElementRef<HTMLInputElement>;
 
@@ -22,6 +23,14 @@ export class Footer {
   doRepeat: 'none' | 'one' | 'all' = 'none';
   isAddVideoVisible: boolean = false;
   youtubeUrl: string = '';
+
+  ngOnInit(): void {
+    document.addEventListener('keyup', (event) => {
+      if (event?.code === "Space") {
+        this.playPause();
+      }
+    });
+  }
 
   nextSong(): void {
     this.controllerService.sendCommand(PlayerCommands.Next);
@@ -44,11 +53,7 @@ export class Footer {
   }
 
   getRepeatIcon(): string {
-    if (this.doRepeat === 'one') {
-      return 'repeat_one';
-    } else {
-      return 'repeat';
-    }
+    return this.doRepeat === 'one' ? 'repeat_one' : 'repeat';
   }
 
   playPause(): void {
