@@ -25,8 +25,16 @@ export class Footer implements OnInit {
   youtubeUrl: string = '';
 
   ngOnInit(): void {
+    // When user presses space, prevent page from scrolling
+    document.addEventListener('keydown', (event) => {
+      if (event?.code === 'Space') {
+        event.preventDefault();
+      }
+    });
+
+    // When user presses space, play or pause current song
     document.addEventListener('keyup', (event) => {
-      if (event?.code === "Space") {
+      if (event?.code === 'Space') {
         this.playPause();
       }
     });
